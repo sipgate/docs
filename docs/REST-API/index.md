@@ -22,7 +22,7 @@ Or you could send an SMS:
 ```bash
 curl \
 --request POST \
---header "Content-Type: application/json' \
+--header "Content-Type: application/json" \
 --header "Accept: application/json" \
 --user <your_sipgate_username>:<your_sipgate_password> \
 --data '{"smsId": "<your_sms_id>", "recipient": "<phone_number>", "message": "I :love: sipgate!"}' \
