@@ -1,0 +1,13 @@
+version: 2
+general:
+  branches:
+    ignore:
+      - gh-pages
+jobs:
+  build:
+    docker:
+      - image: circleci/python:2.7
+    steps:
+      - checkout
+      - run: sudo pip install mkdocs mkdocs-material
+      - run: ./.circleci/deploy.sh
