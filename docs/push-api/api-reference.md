@@ -20,7 +20,10 @@ fullUserId[] | The full IDs of sipgate user(s) involved (e.g. `1234567w0`).
 You can simulate this POST request and test your server with a cURL command:
 
 ```sh
-curl -X POST --data "event=newCall&from=492111234567&to=4915791234567&direction=in&callId=123456&user[]=Alice&user[]=Bob&userId[]=w0&userId[]=w1&fullUserId[]=1234567w0&fullUserId[]=1234567w1" http://localhost:3000
+curl \
+  -X POST \
+  --data "event=newCall&from=492111234567&to=4915791234567&direction=in&callId=123456&user[]=Alice&user[]=Bob&userId[]=w0&userId[]=w1&fullUserId[]=1234567w0&fullUserId[]=1234567w1" \
+  http://localhost:3000
 ```
 
 Optional Parameter | Description
@@ -260,7 +263,10 @@ answeringNumber | The number of the answering destination. Useful when redirecti
 You can simulate this POST request and test your server with a cURL command:
 
 ```sh
-curl -X POST --data "event=answer&callId=123456&user=John+Doe&userId=w0&fullUserId=1234567w0&from=492111234567&to=4915791234567&direction=in&answeringNumber=21199999999" http://localhost:3000
+curl \
+  -X POST \
+  --data "event=answer&callId=123456&user=John+Doe&userId=w0&fullUserId=1234567w0&from=492111234567&to=4915791234567&direction=in&answeringNumber=21199999999" \
+  http://localhost:3000
 ```
 
 Optional Parameter | Description
@@ -293,7 +299,10 @@ answeringNumber | The number of the answering destination. Useful when redirecti
 You can simulate this POST request and test your server with a cURL command:
 
 ```sh
-curl -X POST --data "event=hangup&cause=normalClearing&callId=123456&from=492111234567&to=4915791234567&direction=in&answeringNumber=4921199999999" http://localhost:3000
+curl \
+  -X POST \
+  --data "event=hangup&cause=normalClearing&callId=123456&from=492111234567&to=4915791234567&direction=in&answeringNumber=4921199999999" \
+  http://localhost:3000
 ```
 
 Optional Parameter | Description
@@ -328,5 +337,8 @@ callId    | Same as in newCall-event for a specific call
 You can simulate this POST request and test your server with a cURL command:
 
 ```sh
-curl -X POST --data "event=dtmf&dtmf=1&callId=123456" http://localhost:3000
+curl \
+  -X POST \
+  --data "event=dtmf&dtmf=1&callId=123456" \
+  http://localhost:3000
 ```
