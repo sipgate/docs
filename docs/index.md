@@ -1,13 +1,27 @@
-# Overview
+# sipgate Developer
 
-## [REST API](rest-api/REST-API.md)
+## Integrate telephony into everything!
 
-We build our applications using this API and we invite you to use it too. Check out our Endpoint Reference.
+We opened up our telephony systems for you to build integrations and get the most out of it.
 
-## Push API
+## [REST API][rest-api]
 
-sipgate.io passes call meta data to your web server in real-time. Check out the official documentation.
+We build our applications using this API and we invite you to use it too.
 
-## XML-RPC API
+[Check out the official documentation.][rest-api]
 
-Back in 2005 we released our first API. We called it SAMURAI. Check out the XML-RPC API specification.
+## [Push API][push-api]
+
+sipgate.io passes call meta data to your web server in real-time.
+
+[Check out the official documentation.][push-api]
+
+## [XML-RPC API][xml-rpc-api]
+
+Way back in 2005 we released our first API called SAMURAI. The API is still usable but no longer under active development. We advise you to use our [REST API][rest-api] instead. 
+
+[Check out the XML-RPC API specification.][xml-rpc-api]
+
+[rest-api]: ./rest-api
+[push-api]: ./push-api
+[xml-rpc-api]: http://www.sipgate.de/static/sipgate.de/downloads/api/sipgate_API.pdf
