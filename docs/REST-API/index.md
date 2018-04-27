@@ -56,9 +56,8 @@ You can find examples here:
 
 Scopes are used to grant an application different levels of access to data on behalf of the end user. As an example, the scope for sending SMS (`/sessions/sms`) is `sessions:sms:write`.
 
-> **A word about security**
->
-> It is generally a good idea to only use a minimal set of scopes to maximize security.
+!!! info "A word about security"
+    It is generally a good idea to only use a minimal set of scopes to maximize security.
 
 | Scope name | Description |
 |----------- |-------------|

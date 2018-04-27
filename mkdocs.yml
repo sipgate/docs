@@ -9,4 +9,7 @@ theme:
   feature:
     tabs: true
 markdown_extensions:
+  - admonition
   - codehilite
+  - toc:
+      permalink: true
