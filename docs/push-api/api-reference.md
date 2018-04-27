@@ -23,95 +23,13 @@ You can simulate this POST request and test your server with a cURL command:
 curl -X POST --data "event=newCall&from=492111234567&to=4915791234567&direction=in&callId=123456&user[]=Alice&user[]=Bob&userId[]=w0&userId[]=w1&fullUserId[]=1234567w0&fullUserId[]=1234567w1" http://localhost:3000
 ```
 
-
 Optional Parameter | Description
 -------------------|------------
-diversion          | If a call was diverted before it reached sipgate.io this contains the originally dialed number.
+diversion          | If a call was diverted before it reached sipgate.io this contains the originally dialed number. 
 
-### Answer
+### Follow up events
 
-If you set the ["onAnswer" attribute](#onanswer) sipgate.io will push an answer-event, when
-a call is answered by the other party.
-
-Parameter       | Description
---------------- | -----------
-event           | "answer"
-callId          | Same as in newCall-event for a specific call
-user            | Name of the user who answered this call. Only incoming calls can have this parameter
-userId          | The ID of sipgate user(s) involved (e.g. `w0`).
-fullUserId      | The full ID of sipgate user(s) involved (e.g. `1234567w0`).
-from            | The calling number (e.g. `"492111234567"` or `"anonymous"`)
-to              | The called number (e.g. `"4915791234567"`)
-direction       | The direction of the call (either `"in"` or `"out"`)
-answeringNumber | The number of the answering destination. Useful when redirecting to multiple destinations
-
-You can simulate this POST request and test your server with a cURL command:
-
-```sh
-curl -X POST --data "event=answer&callId=123456&user=John+Doe&userId=w0&fullUserId=1234567w0&from=492111234567&to=4915791234567&direction=in&answeringNumber=21199999999" http://localhost:3000
-```
-
-Optional Parameter | Description
--------------------|------------
-diversion          | If a call was diverted before it reached sipgate.io this contains the originally dialed number.
-
-
-### Call hangup
-
-If you set the ["onHangup" attribute](#onhangup) sipgate.io will push a hangup-event
-when the call ends.
-
-Parameter       | Description
---------------- | -----------
-event           | "hangup"
-cause           | The cause for the hangup event (see [table](#hangup-causes) below)
-callId          | Same as in newCall-event for a specific call
-from            | The calling number (e.g. `"492111234567"` or `"anonymous"`)
-to              | The called number (e.g. `"4915791234567"`)
-direction       | The direction of the call (either `"in"` or `"out"`)
-answeringNumber | The number of the answering destination. Useful when redirecting to multiple destinations
-
-You can simulate this POST request and test your server with a cURL command:
-
-```sh
-curl -X POST --data "event=hangup&cause=normalClearing&callId=123456&from=492111234567&to=4915791234567&direction=in&answeringNumber=4921199999999" http://localhost:3000
-```
-
-Optional Parameter | Description
--------------------|------------
-diversion          | If a call was diverted before it reached sipgate.io this contains the originally dialed number.
-
-#### Hangup causes
-
-Hangups can occur due to these causes:
-
-Cause           | Description
---------------- | -----------
-normalClearing  | One of the participants hung up after the call was established
-busy            | The called party was busy
-cancel          | The caller hung up before the called party picked up
-noAnswer        | The called party rejected the call (e.g. through a DND setting)
-congestion      | The called party could not be reached
-notFound        | The called number does not exist or called party is offline
-forwarded       | The call was forwarded to a different party
-
-
-### DTMF
-
-If you ["gather"](#gather) users' dtmf reactions, this result is pushed as an event to the url specified in the ["onData" attribute](#ondata) with the following parameters: 
-
-Parameter | Description
---------- | -----------
-event     | "dtmf"
-dtmf      | Digit(s) the user has entered. If no input is received, the value of dtmf will be empty.
-callId    | Same as in newCall-event for a specific call
-
-You can simulate this POST request and test your server with a cURL command:
-
-```sh
-curl -X POST --data "event=dtmf&dtmf=1&callId=123456" http://localhost:3000
-```
-
+In your response to the new call event POST request, you can [subscribe to receive following events of the concerned call](#following-events). 
 
 ## The XML response
 
@@ -127,14 +45,10 @@ Action            | Description
 [Reject](#reject) | Reject call or pretend to be busy
 [Hangup](#hangup) | Hang up the call
 
-Additional to actions, the response can specify urls which shall be called by sipgate.io on certain call-events. Specify these urls via xml-attributes in the response-tag.
+### Actions
 
-Url                   | Description
---------------------- | -----------
-[onAnswer](#onanswer) | Receives a POST-request as soon as someone answers the call. The response to that request is discarded.
-[onHangup](#onhangup) | Receives a POST-request as soon as the call ends for whatever reason. The response to that request is discarded.
 
-### Dial
+#### Dial
 
 
 Redirect the call and alter your caller id ([call charges apply](https://www.simquadrat.de/tarife/mobile)). Calls with ```direction=in``` can be redirected to up to 5 targets.
@@ -211,7 +125,7 @@ Voicemail | Send call to [voicemail](https://www.simquadrat.de/feature-store/voi
 
 When the call is answered, the resulting answer-event reports the answering destination in a field called ```answeringNumber```.
 
-### Play
+#### Play
 
 Play a given sound file. Afterwards the call is delivered as it would have been without playing the sound file.
 
@@ -238,7 +152,7 @@ Linux users might want to use ```mpg123``` to convert the file:
 mpg123 --rate 8000 --mono -w output.wav input.mp3
 ```
 
-### Gather
+#### Gather
 
 Gather collects digits that a caller enters with the telephone keypad. The onData attribute is mandatory and takes an absolute URL as a value.
 
@@ -268,7 +182,7 @@ The following verbs can be nested within ```<Gather>```:
 </Response>
 ```
 
-### Reject
+#### Reject
 
 Pretend to be busy or block unwanted calls.
 
@@ -295,7 +209,7 @@ reason    | rejected, busy  | rejected
 </Response>
 ```
 
-### Hangup
+#### Hangup
 
 Hang up calls
 
@@ -308,7 +222,20 @@ Hang up calls
 </Response>
 ```
 
-### onAnswer
+### Following events 
+
+Additional to actions, the response can specify urls which shall be called by sipgate.io on certain call-events. Specify these urls via xml-attributes in the response-tag.
+
+Url                   | Description
+--------------------- | -----------
+[onAnswer](#onanswer) | Receives a POST-request as soon as someone answers the call. The response to that request is discarded.
+[onHangup](#onhangup) | Receives a POST-request as soon as the call ends for whatever reason. The response to that request is discarded.
+
+
+#### onAnswer
+
+If you set the `onAnswer` attribute sipgate.io will push an answer-event, when
+a call is answered by the other party.
 
 **Example: Request notification for call being answered**
 
@@ -317,11 +244,89 @@ Hang up calls
 <Response onAnswer="http://localhost:3000/answer" />
 ```
 
-### onHangup
+
+Parameter       | Description
+--------------- | -----------
+event           | "answer"
+callId          | Same as in newCall-event for a specific call
+user            | Name of the user who answered this call. Only incoming calls can have this parameter
+userId          | The ID of sipgate user(s) involved (e.g. `w0`).
+fullUserId      | The full ID of sipgate user(s) involved (e.g. `1234567w0`).
+from            | The calling number (e.g. `"492111234567"` or `"anonymous"`)
+to              | The called number (e.g. `"4915791234567"`)
+direction       | The direction of the call (either `"in"` or `"out"`)
+answeringNumber | The number of the answering destination. Useful when redirecting to multiple destinations
+
+You can simulate this POST request and test your server with a cURL command:
+
+```sh
+curl -X POST --data "event=answer&callId=123456&user=John+Doe&userId=w0&fullUserId=1234567w0&from=492111234567&to=4915791234567&direction=in&answeringNumber=21199999999" http://localhost:3000
+```
+
+Optional Parameter | Description
+-------------------|------------
+diversion          | If a call was diverted before it reached sipgate.io this contains the originally dialed number.
+
+
+#### onHangup
+
+If you set the `onHangup` attribute sipgate.io will push a hangup-event
+when the call ends.
 
 **Example: Request notification for call hangup**
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <Response onHangup="http://localhost:3000/hangup" />
+```
+
+Parameter       | Description
+--------------- | -----------
+event           | "hangup"
+cause           | The cause for the hangup event (see [table](#hangup-causes) below)
+callId          | Same as in newCall-event for a specific call
+from            | The calling number (e.g. `"492111234567"` or `"anonymous"`)
+to              | The called number (e.g. `"4915791234567"`)
+direction       | The direction of the call (either `"in"` or `"out"`)
+answeringNumber | The number of the answering destination. Useful when redirecting to multiple destinations
+
+You can simulate this POST request and test your server with a cURL command:
+
+```sh
+curl -X POST --data "event=hangup&cause=normalClearing&callId=123456&from=492111234567&to=4915791234567&direction=in&answeringNumber=4921199999999" http://localhost:3000
+```
+
+Optional Parameter | Description
+-------------------|------------
+diversion          | If a call was diverted before it reached sipgate.io this contains the originally dialed number.
+
+##### Hangup causes
+
+Hangups can occur due to these causes:
+
+Cause           | Description
+--------------- | -----------
+normalClearing  | One of the participants hung up after the call was established
+busy            | The called party was busy
+cancel          | The caller hung up before the called party picked up
+noAnswer        | The called party rejected the call (e.g. through a DND setting)
+congestion      | The called party could not be reached
+notFound        | The called number does not exist or called party is offline
+forwarded       | The call was forwarded to a different party
+
+
+#### onData
+
+If you ["gather"](#gather) users' dtmf reactions, this result is pushed as an event to the url specified in the `onData` attribute with the following parameters: 
+
+Parameter | Description
+--------- | -----------
+event     | "dtmf"
+dtmf      | Digit(s) the user has entered. If no input is received, the value of dtmf will be empty.
+callId    | Same as in newCall-event for a specific call
+
+You can simulate this POST request and test your server with a cURL command:
+
+```sh
+curl -X POST --data "event=dtmf&dtmf=1&callId=123456" http://localhost:3000
 ```
