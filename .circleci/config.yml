@@ -1,8 +1,8 @@
 version: 2
 general:
   branches:
-    ignore:
-      - gh-pages
+    only:
+      - master
 jobs:
   build:
     docker:
