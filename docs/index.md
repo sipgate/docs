@@ -1,6 +1,6 @@
 # Overview
 
-## [REST API](REST-API/REST-API.md)
+## [REST API](rest-api/REST-API.md)
 
 We build our applications using this API and we invite you to use it too. Check out our Endpoint Reference.
 

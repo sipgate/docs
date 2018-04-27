@@ -1,5 +1,6 @@
 site_name: sipgate Developer
 site_description: Developer documentation for all sipgate APIs
+
 theme:
   name: 'material'
   logo: 'img/logo.png'
@@ -8,8 +9,22 @@ theme:
     primary: 'teal'
   feature:
     tabs: true
+
 markdown_extensions:
   - admonition
   - codehilite
   - toc:
       permalink: true
+
+pages:
+  - Overview: index.md
+  - REST API:
+    - Overview: rest-api/index.md
+  - Push API:
+    - Set up webhooks in your sipgate account: push-api/setup.md
+    - API Reference: push-api/api-reference.md
+    - Examples: push-api/examples.md
+    - Troubleshooting: push-api/troubleshooting.md
+    - A word about security: push-api/security.md
+    - FAQ: push-api/faq.md
+    - Setting up ngrok for local development: push-api/ngrok-local-development.md
