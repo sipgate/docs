@@ -31,7 +31,7 @@ https://api.sipgate.com/v2/sessions/sms
 ## Authenticating users in third party applications 
 
 When building a third-party application users will have to authorize via the OAuth authorization code flow. 
-Refer to our guide about [managing third-party clients](doc:managing-third-party-clients-using-the-command-line) to learn how to obtain a `clientId` and `clientSecret`. After that your application will be able to query the sipgate REST API.  
+Refer to our guide about [managing third-party clients](./managing-third-party-clients.md) to learn how to obtain a `clientId` and `clientSecret`. After that your application will be able to query the sipgate REST API.  
 
 During the authorization process the user will be asked to grant permission to your client to access the REST API. The user will have the option to allow the access or cancel the authorization process.
 
