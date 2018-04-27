@@ -41,9 +41,9 @@ TODO: Explain scopes
 
 Since the authentication with OAuth2 tends to confuse people, we start with a few lines of general background information.
  
-First thing zo understand the authorization process is identifying the three parties involved: 
+First thing to understand the authorization process is identifying the three parties involved: 
 
-1. Service provider: The service provider delivers value to its users. These users own resources at another service - the resource provicder. Assumed that you are service provider in our case, "you" means the service provider below. 
+1. Service provider: The service provider delivers value to its users. These users own resources at another service - the resource provider. Assumed that you are service provider in our case, "you" means the service provider below. 
 3. Resoure owner: The resource owner uses services delivered by the service provider and owns resources hosted by the resource provider. The resource owner is called the "user" below.  
 2. Resource provider: The resource provider maintains resources that belong to the resource owner. sipgate is the resource provider in our case and "we" or "sipgate" refers to the resource provider below. 
 
