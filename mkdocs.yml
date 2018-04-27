@@ -21,9 +21,10 @@ pages:
   - REST API:
     - Authentication: rest-api/authentication.md
     - API Reference: rest-api/api-reference.md
-    - Examples rest-api/examples.md
+    - Examples: rest-api/examples.md
     - OAuth2 scopes: rest-api/oauth2-scopes.md
     - Real Time Call Manipulation: rest-api/rtcm.md
+    - Managing third-party clients: rest-api/managing-third-party-clients.md
   - Push API:
     - Set up webhooks in your sipgate account: push-api/setup.md
     - API Reference: push-api/api-reference.md
