@@ -44,7 +44,7 @@ Since the authentication with OAuth2 tends to confuse people, we start with a fe
 First thing to understand the authorization process is identifying the three parties involved: 
 
 1. Service provider: The service provider delivers value to its users. These users own resources at another service - the resource provider. Assumed that you are service provider in our case, "you" means the service provider below. 
-3. Resoure owner: The resource owner uses services delivered by the service provider and owns resources hosted by the resource provider. The resource owner is called the "user" below.  
+3. Resource owner: The resource owner uses services delivered by the service provider and owns resources hosted by the resource provider. The resource owner is called the "user" below.  
 2. Resource provider: The resource provider maintains resources that belong to the resource owner. sipgate is the resource provider in our case and "we" or "sipgate" refers to the resource provider below. 
 
 To use OAuth2 you need special client credentials to authenticate your application against our authentication system. You can get these credentials in less than 5 minutes - please refer to the [sipgate console documentation]() to learn how. 
@@ -54,7 +54,7 @@ The OAuth2 authentication flow consists of several steps.
 1. Send your user to the initial authentication screen provided by sipgate. 
 2. The authentication system redirects the user back to your application and provides you a nonce, a use once code. 
 3. Take this code along with your client credentials and send them to the authentication system. 
-4. The authentication system provides you an acces token and a refresh token. The access token grants you access to your users resources for a few minutes. 
+4. The authentication system provides you an access token and a refresh token. The access token grants you access to your users resources for a few minutes. 
 5. If the access token lifespan comes to the end, you can take the refresh token to request a fresh access token from out authentication system.
 
 ### OAuth2 in the real life
@@ -63,13 +63,13 @@ As stated above, the first things you need are client credentials. You can get t
 
 #### Use a ready to use library
 
-Since OAuth2 is standardized and well supported, there are a lot of libraries covering the authentication process for any language. To save time and reduce the risk of potential security failures, we highly encurage you to use such libraries. 
+Since OAuth2 is standardized and well supported, there are a lot of libraries covering the authentication process for any language. To save time and reduce the risk of potential security failures, we highly encourage you to use such libraries. 
 
 TODO: List some libraries
 
 #### Step 1: Sending the user to our authentication system
 
-The authentication screen is accessable at: 
+The authentication screen is accessible at: 
 
     https://api.sipgate.com/login/third-party/protocol/openid-connect/auth
 
@@ -125,7 +125,7 @@ The parameters you need to provide form encoded are:
 - client_id: Your client id, something like 2556404-0-dc848ae6-085c-11e8-92a6-31b99c83912e
 - client_secret:  Your client id, something like a1138f1-7-dc848ae6-99aa-23ed-23a4-b7da6846f141
 - code: 2Eamxyz7vQLiHyGqklDox5l1NIDaJ0Fd08ngBaeVNtM.0714e913-f108-4e45-8ad4-976d39dfe0c2
-- redirect_uri: The location the authorization system should redirect the post request. Something likd https://your.application.com
+- redirect_uri: The location the authorization system should redirect the post request. Something like https://your.application.com
 - grant_type: Always 'authorization_code'
 
 
