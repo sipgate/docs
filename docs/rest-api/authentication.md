@@ -96,11 +96,11 @@ Generate the URL with Javascript:
 
 If redirected to the authentication screen, the user can login into the authorization system with his sipgate username and password. 
 
-![Login screen](images/login_screen.png)
+![Login screen](../img/login_screen.png)
 
 If successfully authenticated, the user will be asked to grant the requested access scopes. Note that the user needs to give his grant only once as long as the scopes do not change.
 
-![Grant screen](images/grant_screen.png)
+![Grant screen](../img/grant_screen.png)
 
 Granting the requested scopes finishes the user interaction and leads to step 2. 
 
