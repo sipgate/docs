@@ -39,11 +39,11 @@ OAuth2 is an authentication method that enables a service provider to handle for
 
 TODO: Explain scopes
 
-Since the authentication with OAuth2 tends to confuse people, we start with a few lines of general background information.
+Since the authentication with OAuth2 tends to be confusing, here a few lines of what we've learned so far.
  
-First thing to understand the authorization process is identifying the three parties involved: 
+First thing to understand the authorization process is identifying three parties: 
 
-1. Service provider: The service provider delivers value to its users. These users own resources at another service - the resource provider. Assumed that you are service provider in our case, "you" means the service provider below. 
+1. Service provider: The service provider delivers value to its users. These users own resources at another service - the resource provider. The documentation below assumes that you are a service provider, because of that "you" means the part of the service provider in this document. 
 3. Resource owner: The resource owner uses services delivered by the service provider and owns resources hosted by the resource provider. The resource owner is called the "user" below.  
 2. Resource provider: The resource provider maintains resources that belong to the resource owner. sipgate is the resource provider in our case and "we" or "sipgate" refers to the resource provider below. 
 
@@ -53,9 +53,9 @@ The OAuth2 authentication flow consists of several steps.
 
 1. Send your user to the initial authentication screen provided by sipgate. 
 2. The authentication system redirects the user back to your application and provides you a nonce, a use once code. 
-3. Take this code along with your client credentials and send them to the authentication system. 
+3. Use this code along with your client credentials and send them to the authentication system. 
 4. The authentication system provides you an access token and a refresh token. The access token grants you access to your users resources for a few minutes. 
-5. If the access token lifespan comes to the end, you can take the refresh token to request a fresh access token from out authentication system.
+5. If the access token lifespan comes to the end, you can take the refresh token to request a new access token from out the authentication system.
 
 ### OAuth2 in the real life
 
@@ -64,7 +64,7 @@ As stated above, the first things you need are client credentials. You can get t
 
 #### Use a ready to use library
 
-Since OAuth2 is standardized and well supported, there are a lot of libraries covering the authentication process for any language. To save time and reduce the risk of potential security failures, we highly encourage you to use such libraries. 
+Since OAuth2 is standardized and well supported, there are a lot of libraries covering the authentication process for any language. To save time and reduce the risk of potential security failures, we highly recommend to use such libraries. 
 
 #### Step 1: Sending the user to our authentication system
 
@@ -101,7 +101,7 @@ If redirected to the authentication screen, the user can login into the authoriz
 
 ![Login screen](../img/login_screen.png)
 
-If successfully authenticated, the user will be asked to grant the requested access scopes. Note that the user needs to give his grant only once as long as the scopes do not change.
+If successfully authenticated, the user will be asked to grant the requested access scopes. Note that the user needs to grant access only once as long as the scopes do not change.
 
 ![Grant screen](../img/grant_screen.png)
 
@@ -109,7 +109,7 @@ Granting the requested scopes finishes the user interaction and leads to step 2.
 
 #### Step 2: Get the code ####
 
-The authentication system appends an single use code as query string to the previously provided redirect uri and redirects the user to the resulting location. 
+The authentication system appends a single use code as a query string to the previously provided redirect uri and redirects the user to that location. 
 
 The resulting URL looks like:
 ```
@@ -120,18 +120,18 @@ You can take this code and build your request for step 3.
 
 #### Step 3: Request access and refresh token ####
 
-To request access and refresh tokens for the user, you need to send your client credentials and the previously fetched code to the authentication system. To get the tokens you have to post against: 
+To request access and a refresh tokens for the user, you need to send your client credentials and the previously fetched code to the authentication system. To get the tokens you have to send a post request against: 
 
 ```
     https://api.sipgate.com/login/third-party/protocol/openid-connect/token
 ```
 
-The parameters you need to provide form encoded are: 
+The parameters you need to provide, form encoded, are: 
 
 - client_id: Your client id, something like 2556404-0-dc848ae6-085c-11e8-92a6-31b99c83912e
-- client_secret:  Your client id, something like a1138f1-7-dc848ae6-99aa-23ed-23a4-b7da6846f141
+- client_secret:  Your client secret, something like a1138f1-7-dc848ae6-99aa-23ed-23a4-b7da6846f141
 - code: 2Eamxyz7vQLiHyGqklDox5l1NIDaJ0Fd08ngBaeVNtM.0714e913-f108-4e45-8ad4-976d39dfe0c2
-- redirect_uri: The location the authorization system should redirect the post request. Something like https://your.application.com
+- redirect_uri: The location the authorization system should redirect the post request to. Something like https://your.application.com
 - grant_type: Always 'authorization_code'
 
 ```js
@@ -154,7 +154,7 @@ Our authentication system will provide the tokens as response to this query.
 
 #### Step 4: Retrieve access and refresh token ####
 
-The response to the query explained in step 3 looks like: 
+The response to the query explained in step 3 looks like this: 
 
 ```json
 {
