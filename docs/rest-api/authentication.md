@@ -193,3 +193,55 @@ const response = request.post({
   res.redirect(apiAuthUrl);
 });
 ```
+
+Now you are ready to access the sipgate api. To do so, you have to send the `access token` as authozization header. If your access code was f123b4214b3124312b, the header would be: 
+
+```
+  Authorization: Bearer f123b4214b3124312b
+```
+
+#### Step 5: Refresh the access token ####
+
+Due to security reasons, the access token obtained in step 4 has a very limited lifetime of usually 5 minutes. To prevent your user from logging in every 5 minutes, OAuth2 provides a token refresh mechanism. To get a new `access token`, you have to send the corresponding `refresh token` as well as your `client id` and `client secret` to our authentication system at: 
+
+```
+    https://api.sipgate.com/login/third-party/protocol/openid-connect/token
+```
+
+Provide following data form encoded within a POST request: 
+
+- client_id: Your client id, something like 2556404-0-dc848ae6-085c-11e8-92a6-31b99c83912e
+- client_secret:  Your client secret, something like a1138f1-7-dc848ae6-99aa-23ed-23a4-b7da6846f141
+- refresh_token: The refresh token corresponding to the expiring access token.
+- grant_type: Always `refresh_token`
+
+A request could be sent this way:
+
+```
+curl \
+  --request POST \
+  --header 'Content-Type: application/x-www-form-urlencoded' \
+  --header 'Accept: application/json' \
+  --data-urlencode "client_id=2566404-0-db848ab6-085c-11e8-97a6-31b99b83912e" \
+  --data-urlencode "client_secret=a1138f1-7-dc848ae6-99aa-23ed-23a4-b7da6846f141" \
+  --data-urlencode "refresh_token=eyJhbGciOiJSUzI1NiIsInR5cCIgOiA[...]WDVWn1dj7kQ8_wVgmxg" \
+  --data-urlencode "grant_type=refresh_token" \
+  https://api.sipgate.com/login/third-party/protocol/openid-connect/token
+```
+
+Our authentication system will provide a new set of `access token` and `refresh token` with a response like the following: 
+
+```json
+{
+   "refresh_expires_in" : 2592000,
+   "id_token" : "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJXWFlHdjBTRS1TdUdtMU1sU0ZmSi1vaWJ5czR0blJwb2hhTExvQzBXVFU4In0.eyJqdGkiOiJkYzQ2N2FjYi1hYjg0LTQ1MDctYmM5OC0yOWE2NmRmN2U5NTQiLCJleHAiOjE1MjUyNzY4NTQsIm5iZiI6MCwiaWF0IjoxNTI1Mjc2NTU0LCJpc3MiOiJodHRwczovL2xvZ2luLnNpcGdhdGUuY29tL2F1dGgvcmVhbG1zL3RoaXJkLXBhcnR5IiwiYXVkIjoiMjQ3NzE0OC0wLTc0NzViOGQyLTRlMTItMTFlOC1hOTU3LWIzMWFmZDc2NzFiMiIsInN1YiI6ImY6MmU3MjQ0NDQtZTQ0YS00OWNjLThhZDgtZWYwNDEyYzQ0MDI0Ojk1NzE2MiIsInR5cCI6IklEIiwiYXpwIjoiMjQ3NzE0OC0wLTc0NzViOGQyLTRlMTItMTFlOC1hOTU3LWIzMWFmZDc2NzFiMiIsImF1dGhfdGltZSI6MTUyNTI3NjM5OSwic2Vzc2lvbl9zdGF0ZSI6Ijk0MWI0NGRjLWNiYzktNDhkYi1iNDc5LTE3NDFjNGNkOTU0MCIsImFjciI6IjEifQ.T_E7VOk_g_U-Uw4ySjsnr_SlIwbglb5R9PxJ-nvSYIaNlu651OVbQEv_X3EJZuTedAVBOxLPSxZjH_HY5pKAZeoBXwThf70YbbVVJOKrdDUr1E68qzrpFfghB12iVXoEIv2SruJxelRaFW7v-CyaktjemXEDcScrYgUGGij07mwSBxGKbkeGpq68S535HDixhPTfpXyDRy69Nm-rsP1j4c3t4Ja_6I7runb9XC7rIU7BOU07TtM2yHdEkBbDsUOinSf9gQYAz69dUdEpAHk1h4pz3dassYVmUhfRzWDe0SiP1fUpJFgF-wGYOBFoVGYYKGRyx2VI_ZyS2jJb8XOZAQ",
+   "session_state" : "941b44dc-cbc9-48db-b479-1741c4cd9540",
+   "not-before-policy" : 0,
+   "expires_in" : 300,
+   "refresh_token" : "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJXWFlHdjBTRS1TdUdtMU1sU0ZmSi1vaWJ5czR0blJwb2hhTExvQzBXVFU4In0.eyJqdGkiOiJkYzkxY2M5ZS0xMGU1LTQ3ZjEtYWM5OC1wZjEyNGM1NjUxZmUiLCJleHAiOjE4Mjc4Njg1NTQsIm5iZiI6MCwiaWF0IjoxNTI1Mjc2NTU0LCJpc3MiOiJodHRwczovL2xvZ2luLnNpcGdhdGUuY29tL2F1dGgvcmVhbG1zL3RoaXJkLXBhcnR5IiwiYXVkIjoiMjQ3NzE0OC0wLTc0NzViOGQyLTRlMTItMTFlOC1hOTU3LWIzMWFmZDc2NzFiMiIsInN1YiI6ImY6MmU3MjQ0NDQtZTQ0YS00OWNjLThhZDgtZWYwNDEyYzQ0MDI0Ojk1NzE2MiIsInR5cCI6IlJlZnJlc2giLCJhenAiOiIyNDc3MTQ4LTAtNzQ3NWI4ZDItNGUxMi0xMWU4LWE5NTctYjMxYWZkNzY3MWIyIiwiYXV0aF90aW1lIjowLCJzZXNzaW9uX3N0YXRlIjoiOTQxYjQ0ZGMtY2JjOS00OGRiLWI0NzktMTc0MWM0Y2Q5NTQwIiwiY2xpZW50X3Nlc3Npb24iOiIxZWM2M2MwZC1kOTFkLTRmZmItOTM5Yy0yNGM2MWExYWZmM2IiLCJyZWFsbV9hY2Nlc3MiOnsicm9sZXMiOlsiYmFsYW5jZTpyZWFkIl19LCJyZXNvdXJjZV9hY2Nlc3MiOnt9fQ.Di4CZC9AD9tiVh4RFd0ChrabnBmlTQxKbEoVoJcbVdGv8L9uXS9UlcmgD9AEejdGgfIkxFG7MMdkf2v3UV8U2Fj0Qam4JZyBrG3SAdd3ymYEwYUOE8sjwwnqoL-ggJLJZxaiUxf4GjtSthbHjLw4p8ZE63GHVZGDRTR0lA544g3fbvzXaXIIA2x7-EHHQ499VCyDnK9COFj0oBgvkQmlidjG5c7TBCAoktHcdeHFgVKt-F3pOrxc5mQs0xYVWUXiWsdeGcizE6UDEZNWupY3t1BkmFcP6UfNjOgUsfSP8X2WePnos2LjhXLBP9bIuBof_GXhcS1YsWYGAxtCVqhoiQ",
+   "token_type" : "bearer",
+   "access_token" : "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSleUIiwia2lkIiA6ICJXWFlHdjBTRS1TdUdtMU2sU0ZmSi1vaWJ5czR0blJwb2hhTExvQzBXVFU4In0.eyJqdGkiOiJhM2M1NTA2Zi1kNGNjLTQ0Y2EtYmVhOC00NDI0ODM5NWM3MGMiLCJleHAiOjE1MjUyNzY4NTQsIm5iZiI6MCwiaWF0IjoxNTI1Mjc2NTU0LCJpc3MiOiJodHRwczovL2xvZ2luLnNpcGdhdGUuY29tL2F1dGgvcmVhbG1zL3RoaXJkLXBhcnR5IiwiYXVkIjoiMjQ3NzE0OC0wLTc0NzViOGQyLTRlMTItMTFlOC1hOTU3LWIzMWFmZDc2NzFiMiIsInN1YiI6ImY6MmU3MjQ0NDQtZTQ0YS00OWNjLThhZDgtZWYwNDEyYzQ0MDI0Ojk1NzE2MiIsInR5cCI6IkJlYXJlciIsImF6cCI6IjI0NzcxNDgtMC03NDc1YjhkMi00ZTEyLTExZTgtYTk1Ny1iMzFhZmQ3NjcxYjIiLCJhdXRoX3RpbWUiOjE1MjUyNzYzOTksInNlc3Npb25fc3RhdGUiOiI5NDFiNDRkYy1jYmM5LTQ4ZGItYjQ3OS0xNzQxYzRjZDk1NDAiLCJhY3IiOiIxIiwiY2xpZW50X3Nlc3Npb24iOiIxZWM2M2MwZC1kOTFkLTRmZmItOTM5Yy0yNGM2MWExYWZmM2IiLCJhbGxvd2VkLW9yaWdpbnMiOltdLCJyZWFsbV9hY2Nlc3MiOnsicm9sZXMiOlsiYmFsYW5jZTpyZWFkIl19LCJyZXNvdXJjZV9hY2Nlc3MiOnt9fQ.Y3q-eFVBXc2y6dgMZkm9bSm9Y77Mfg9HzIQ80tgglo2MaioSEKi_Au5bX0DR4NBSLrpFswqaWsVy7G17R43emNhCS2Foqp5dLwDYM0ZXI0X5PFyNkANSzwf1eu16WBngkEwPqfuYNaFeOd-ZaNRrVI-hdxIgwI5jrGqhdQ1rN_pKaAp81bpxRVoBIAQWvO7iOr5GYGHtrKYnWub6uG4Egnrpju8Hl3IGK5qvhY7Xw5bmKOp_1yRihjxhgyCagMNVnUMXetK2fqpX6mCj_23CPpa0ERRbCWyNzen_T6Kgq3JHfl_5egY2Nboqm4-rF0XI8Ze1z3RUw8sOLVvLUpd5NQ"
+}
+```
+
+You can extract the tokens just a explained in step 4. 
