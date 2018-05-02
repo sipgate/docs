@@ -71,7 +71,9 @@ TODO: List some libraries
 
 The authentication screen is accessible at: 
 
+```
     https://api.sipgate.com/login/third-party/protocol/openid-connect/auth
+```
 
 The URL must contain some mandatory query parameters: 
 
@@ -81,11 +83,12 @@ The URL must contain some mandatory query parameters:
 - response_type: Always 'code'
 
 Example URL: 
-
+```
     https://api.sipgate.com/login/third-party/protocol/openid-connect/auth?client_id=2556404-0-dc848ae6-085c-11e8-92a6-31b99c83912e&redirect_uri=https%3A%2F%2Fyour.application%2Fauthorize.com&scope=balance%3Aread&response_type=code
+```
   
 Generate the URL with Javascript: 
-  ```js
+```js
     const apiAuthUrl = 'https://api.sipgate.com/login/third-party/protocol/openid-connect/auth'
       + queryString.stringify({
           client_id: '2556404-0-dc848ae6-085c-11e8-92a6-31b99c83912e',
@@ -110,8 +113,9 @@ Granting the requested scopes finishes the user interaction and leads to step 2.
 The authentication system appends an single use code as query string to the previously provided redirect uri and redirects the user to the resulting location. 
 
 The resulting URL looks like:
-
+```
     https://your.application.com/?code=2Eamxyz7vQLiHyGqklDox5l1NIDaJ0Fd08ngBaeVNtM.0714e913-f108-4e45-8ad4-976d39dfe0c2
+```
  
 You can take this code and build your request for step 3. 
 
@@ -119,7 +123,9 @@ You can take this code and build your request for step 3.
 
 To request access and refresh tokens for the user, you need to send your client credentials and the previously fetched code to the authentication system. To get the tokens you have to post against: 
 
+```
     https://api.sipgate.com/login/third-party/protocol/openid-connect/token
+```
 
 The parameters you need to provide form encoded are: 
 
@@ -129,7 +135,7 @@ The parameters you need to provide form encoded are:
 - redirect_uri: The location the authorization system should redirect the post request. Something like https://your.application.com
 - grant_type: Always 'authorization_code'
 
-```
+```js
     const authorizationCode = req.query.code;
     const apiTokenUrl = "https://api.sipgate.com/login/third-party/protocol/openid-connect/token";
     
@@ -166,7 +172,7 @@ The response to the query explained in step 3 looks like:
 
 The following snippet shows the request from step 3 and extracts the access code out of the response.  
 
-```
+```js
 const authorizationCode = req.query.code;
 const apiTokenUrl = "https://api.sipgate.com/login/third-party/protocol/openid-connect/token";
 
