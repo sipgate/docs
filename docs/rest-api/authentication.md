@@ -129,11 +129,11 @@ The parameters you need to provide form encoded are:
 - redirect_uri: The location the authorization system should redirect the post request. Something like https://your.application.com
 - grant_type: Always 'authorization_code'
 
-
+```
     const authorizationCode = req.query.code;
     const apiTokenUrl = "https://api.sipgate.com/login/third-party/protocol/openid-connect/token";
     
-    request.post({
+    const response = request.post({
       url: apiTokenUrl,
       form: {
         client_id: 'YOUR_API_CLIENT_ID',
@@ -143,11 +143,48 @@ The parameters you need to provide form encoded are:
         grant_type: 'authorization_code',    
       },
     })
-      .then(function (body) {
-        const response = JSON.parse(body);
-        req.session['accessToken'] = response['access_token'];
-        res.redirect('/');
-      })
-      .catch(function () {
-        res.redirect(apiAuthUrl);
-      });
+```
+
+Our authentication system will provide the tokens as response to this query.
+
+#### Step 4: Retrieve access and refresh token ####
+
+The response to the query explained in step 3 looks like: 
+
+```
+{
+   "session_state" : "32c512d5-ccf2-4103-9555-a85d924f7d52",
+   "token_type" : "bearer",
+   "id_token" : "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJXWFlHdjBTRS1TdUdtMU1sU0ZmSi1vaWJ5czR0blJwb2hhTExvQzBXVFU4In0.eyJqdGkiOiI1YWMzYThhMC00NDk5LTRhODAtYjU5OS02NDcwYmJmOWI1YmIiLCJleHAiOjE1MjUyNzIxNDEsIm5iZiI6MCwiaWF0IjoxNTI1MjcxODQxLCJpc3MiOiJodHRwczovL2xvZ2luLnNpcGdhdGUuY29tL2F1dGgvcmVhbG1zL3RoaXJkLXBhcnR5IiwiYXVkIjoiMjQ3NzE0OC0wLTc0NzViOGQyLTRlMTItMTFlOC1hOTU3LWIzMWFmZDc2NzFiMiIsInN1YiI6ImY6MmU3MjQ0NDQtZTQ0YS00OWNjLThhZDgtZWYwNDEyYzQ0MDI0Ojk1NzE2MiIsInR5cCI6IklEIiwiYXpwIjoiMjQ3NzE0OC0wLTc0NzViOGQyLTRlMTItMTFlOC1hOTU3LWIzMWFmZDc2NzFiMiIsImF1dGhfdGltZSI6MTUyNTI3MTgzMCwic2Vzc2lvbl9zdGF0ZSI6IjMyYzUxMmQ1LWNjZjItNDEwMy05NTU1LWE4NWQ5MjRmN2Q1MiIsImFjciI6IjEifQ.NqxGYlsfKwn0t0nJxd0Z-qLk8ZRpJu16YXawvpPd6_1DdrUzBuZSXN-at8mgZhozjyAdlopmkIpgXUbNL0S7_VsgR_3dkKA4BxDyzVIpeOJlZw4ARFFuO22wpWp49Fg_4PNOcvSLzmGnrLXJIxkQ-si0fRa597NiisQ_tJZfcu55hpu1knS-3TZZman5Of7vuaPJozvvib6fmwBYgS0FtzBGMvEnJZjzJkvUgLe284iPNWfbP6h70MUqa9AqsL1EPYHJj96LOer9STpDQp9WfxEWBrAAsI9aufs1Cf643RnXpvo7J0mNpjodZA28BNK5bZFRnwsEHmEe_2-VHqYtaA",
+   "refresh_token" : "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJXWFlHdjBTRS1TdUdtMU1sU0ZmSi1vaWJ5czR0blJwb2hhTExvQzBXVFU4In0.eyJqdGkiOiJiOTEzZjRmMC05MjhmLTRkMTYtOGNjMC00NjI5M2JmYWRjNDIiLCJleHAiOjE1Mjc4NjM4NDEsIm5iZiI6MCwiaWF0IjoxNTI1MjcxODQxLCJpc3MiOiJodHRwczovL2xvZ2luLnNpcGdhdGUuY29tL2F1dGgvcmVhbG1zL3RoaXJkLXBhcnR5IiwiYXVkIjoiMjQ3NzE0OC0wLTc0NzViOGQyLTRlMTItMTFlOC1hOTU3LWIzMWFmZDc2NzFiMiIsInN1YiI6ImY6MmU3MjQ0NDQtZTQ0YS00OWNjLThhZDgtZWYwNDEyYzQ0MDI0Ojk1NzE2MiIsInR5cCI6IlJlZnJlc2giLCJhenAiOiIyNDc3MTQ4LTAtNzQ3NWI4ZDItNGUxMi0xMWU4LWE5NTctYjMxYWZkNzY3MWIyIiwiYXV0aF90aW1lIjowLCJzZXNzaW9uX3N0YXRlIjoiMzJjNTEyZDUtY2NmMi00MTAzLTk1NTUtYTg1ZDkyNGY3ZDUyIiwiY2xpZW50X3Nlc3Npb24iOiJkNjI5ZTU0MC0yNTAzLTRiMmEtOTI5MS03MjYxYjgyMzAwYTEiLCJyZWFsbV9hY2Nlc3MiOnsicm9sZXMiOlsiYmFsYW5jZTpyZWFkIl19LCJyZXNvdXJjZV9hY2Nlc3MiOnt9fQ.V93zXtLdDisdsrq-I8hLspR60SlnLC5Wt_8w5Sq4Wi3P21WZfYBgIVHfeC0hcKSRIFlvuCx0tdeWNIV7L3YGUARWyk074kUTz6ZgcPM3OVNtjK-124odkhFK7IN8GRMBWeOzgvjqzkekNJHZ9IH4A7WbOaitQzMJmt_bl0J-GoTww_07kRUhiBY_tJrECAh6qvK_uYsNIzfzOZ2jcFYKUH6SQuwFt5EmcHck0awRBpemSVAP-LshW6ZyETuoiNsJaYjKoNqHUcjvqzX9syevasd2eKAi_LQo2WBzMLszLRyz6AC1KfuzsJelvMMzDc9DBi7Pum5Tl_jTp2YoolW5iA",
+   "access_token" : "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJXWFlHdjBTRS1TdUdtMU1sU0ZmSi1vaWJ5czR0blJwb2hhTExvQzBXVFU4In0.eyJqdGkiOiI4MzM3N2RjZC0xOTU5LTQwMzYtYjhlZi0wMTRhYzk2ZTQ4NmIiLCJleHAiOjE1MjUyNzIxNDEsIm5iZiI6MCwiaWF0IjoxNTI1MjcxODQxLCJpc3MiOiJodHRwczovL2xvZ2luLnNpcGdhdGUuY29tL2F1dGgvcmVhbG1zL3RoaXJkLXBhcnR5IiwiYXVkIjoiMjQ3NzE0OC0wLTc0NzViOGQyLTRlMTItMTFlOC1hOTU3LWIzMWFmZDc2NzFiMiIsInN1YiI6ImY6MmU3MjQ0NDQtZTQ0YS00OWNjLThhZDgtZWYwNDEyYzQ0MDI0Ojk1NzE2MiIsInR5cCI6IkJlYXJlciIsImF6cCI6IjI0NzcxNDgtMC03NDc1YjhkMi00ZTEyLTExZTgtYTk1Ny1iMzFhZmQ3NjcxYjIiLCJhdXRoX3RpbWUiOjE1MjUyNzE4MzAsInNlc3Npb25fc3RhdGUiOiIzMmM1MTJkNS1jY2YyLTQxMDMtOTU1NS1hODVkOTI0ZjdkNTIiLCJhY3IiOiIxIiwiY2xpZW50X3Nlc3Npb24iOiJkNjI5ZTU0MC0yNTAzLTRiMmEtOTI5MS03MjYxYjgyMzAwYTEiLCJhbGxvd2VkLW9yaWdpbnMiOltdLCJyZWFsbV9hY2Nlc3MiOnsicm9sZXMiOlsiYmFsYW5jZTpyZWFkIl19LCJyZXNvdXJjZV9hY2Nlc3MiOnt9fQ.a3KJmOlfajPsPIXTUGwKbdCzIKDybgCO5NnfWyIVaFQ0M_U9SsqrEbErXgMKauYBRyQagvxvNvVKCcH-iS4Uzai7HXonHCnYG6Yt4mrRAWkFNw9hrvVWQIcuZgHew0YP8OBfFmvfbFR4I8DsdVCI58zqBDBSH-ZCTu1sK1FIrHKtWzqjHesxaqYPT2iz6d0MIKtdR5CKN4oO_FYzlCHEBvdIIUjNTp3k4KmUGzoMhHcSpqiLquylnc5IfeD57z50Ay4pUkzHO7K-mw9cMoZ1RscAnKC5oPoepuZkXzBAK5XYa5xZMa4GhWBaKKokG1GpaIuoOJ55lilMoXYtz3yODg",
+   "not-before-policy" : 0,
+   "expires_in" : 300,
+   "refresh_expires_in" : 2592000
+}
+```
+
+The following snippet shows the request from step 3 and extracts the access code out of the response.  
+
+```
+const authorizationCode = req.query.code;
+const apiTokenUrl = "https://api.sipgate.com/login/third-party/protocol/openid-connect/token";
+
+const response = request.post({
+  url: apiTokenUrl,
+  form: {
+    client_id: 'YOUR_API_CLIENT_ID',
+    client_secret: 'YOUR_API_CLIENT_SECRET',
+    code: authorizationCode,
+    redirect_uri: 'http://localhost:3000/authorize',
+    grant_type: 'authorization_code',    
+  },
+}).then(function (body) {
+  const response = JSON.parse(body);
+  req.session['accessToken'] = response['access_token'];
+  res.redirect('/');
+})
+.catch(function () {
+  res.redirect(apiAuthUrl);
+});
+```
