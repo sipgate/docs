@@ -59,7 +59,8 @@ The OAuth2 authentication flow consists of several steps.
 
 ### OAuth2 in the real life
 
-As stated above, the first things you need are client credentials. You can get them at the [sipgate console](https://console.sipgate.com). Learn [here](), how to use the console.
+As stated above, the first things you need are client credentials. You can get them at the [sipgate console](https://console.sipgate.com).
+<!-- TODO: Add console docs, insert link and uncoment following: Learn [here](), how to use the console. -->
 
 #### Use a ready to use library
 
