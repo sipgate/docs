@@ -4,7 +4,7 @@
 
 We opened up our telephony systems for you to build integrations and get the most out of it.
 
-## [REST API][rest-api]
+## [REST API](rest-api/authentication.md)
 
 We build our applications using this API and we invite you to use it too.
 
@@ -22,6 +22,6 @@ Way back in 2005 we released our first API called SAMURAI. The API is still usab
 
 [Check out the XML-RPC API specification.][xml-rpc-api]
 
-[rest-api]: ./rest-api
-[push-api]: ./push-api
+[rest-api]: ./rest-api/authentication.md
+[push-api]: ./push-api/setup.md
 [xml-rpc-api]: http://www.sipgate.de/static/sipgate.de/downloads/api/sipgate_API.pdf

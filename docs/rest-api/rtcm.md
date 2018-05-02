@@ -6,7 +6,7 @@ The Real Time Call Manipulation API enables you to modify currently running call
 
 ## What is the callId?
 
-The `callId` will either be pushed to you by using a [Webhook](/v2.0/reference#the-post-request)  (see `callId`) or you can obtain it by initiating a call using the [/sessions/calls](/v2.0/reference#newcall) endpoint (see `sessionId`).
+The `callId` will either be pushed to you by using a [Webhook](../push-api/api-reference/#the-post-request)  (see `callId`) or you can obtain it by initiating a call using the [/sessions/calls][swagger] endpoint (see `sessionId`).
 
 ## Authentication
 
@@ -36,13 +36,13 @@ The response will contain a `token` which can be used as `access_token`:
 
 ## Using OAuth 2.0 authentication
 
-Read the chapter on [OAuth 2.0 Authentication](doc:authentication) to obtain an `access_token`.
+Read the chapter on [OAuth 2.0 Authentication](authentication#oauth2) to obtain an `access_token`.
 
 
 
 ### How to get all running calls
 
-You only need your `access_token` to call the [/calls](/v2.0/reference#getcalls) endpoint.
+You only need your `access_token` to call the [/calls][swagger] endpoint.
 
 ```bash
 curl \
@@ -56,19 +56,19 @@ curl \
 
 ### How to put a call on hold
 
-You can put all call participants on hold or retrieve them by using the [/calls/{callId}/hold](/v1.0/reference#setcallhold) endpoint. All you need is the `callId` and your `access_token`:
+You can put all call participants on hold or retrieve them by using the [/calls/{callId}/hold][swagger] endpoint. All you need is the `callId` and your `access_token`:
 
 ```bash
- Hold                                           
+ Hold
 curl \
---verbose \                                   
---request PUT \ 
---header "Authorization: Bearer <access_token>" \       
+--verbose \
+--request PUT \
+--header "Authorization: Bearer <access_token>" \
 --header "Content-Type: application/json" \
 --url https://api.sipgate.com/v2/calls/<callId>/hold \
---data '{ "value": true }'                                                                                                                                                                                                                                   
+--data '{ "value": true }'
  Retrieve
-curl \                                              
+curl \
 --verbose \
 --request PUT \
 --header "Authorization: Bearer <access_token>" \
@@ -79,7 +79,7 @@ curl \
 
 ### How to mute/unmute a call
 
-You can use the [/calls/{callId}/muted](/v2.0/reference#setcallmuted) endpoint to mute or unmute your microphone. All you need is the `callId` and your `access_token`:
+You can use the [/calls/{callId}/muted][swagger] endpoint to mute or unmute your microphone. All you need is the `callId` and your `access_token`:
 
 ```bash
  Mute
@@ -103,7 +103,7 @@ curl \
 
 ### How to transfer a call
 
-You can use the [/calls/{callId}/transfer](/v2.0/reference#transfercall) endpoint to transfer your call to another party. You can choose between attended transfer and blind transfer. All you need is the `callId` and your `access_token`:
+You can use the [/calls/{callId}/transfer][swagger] endpoint to transfer your call to another party. You can choose between attended transfer and blind transfer. All you need is the `callId` and your `access_token`:
 
 ```bash
  Attended transfer
@@ -127,7 +127,7 @@ curl \
 
 ### How to record a call
 
-Use the [/calls/{callId}/recording](/v2.0/reference#setcallrecording) endpoint to record a running call. 
+Use the [/calls/{callId}/recording][swagger] endpoint to record a running call. 
 Pass `"value": true` to start the recording and `"value": false` to stop it.
 You can enable/disable the recording announcement by passing the `announcement` flag.
 
@@ -151,7 +151,7 @@ curl \
 --data '{ "value": false, "announcement": false }'
 ```
 
-To retrieve the recorded file you can use the [/v2/{userId}/history](https://developer.sipgate.io/v2.0/reference#history) endpoint (see `recordingUrl`). 
+To retrieve the recorded file you can use the [/v2/{userId}/history][swagger] endpoint (see `recordingUrl`).
 
 ```bash
 curl \
@@ -163,7 +163,7 @@ curl \
 
 ### How to send DTMF (Dual-tone multi-frequency) sequences
 
-Use the [/calls/{callId}/dtmf](/v2.0/reference#sendcalldtmf) endpoint to send a DTMF sequence to a running call:
+Use the [/calls/{callId}/dtmf][swagger] endpoint to send a DTMF sequence to a running call:
 
 ```bash
 curl \
@@ -177,7 +177,7 @@ curl \
 
 ### How to play an audio file
 
-You can inject any WAV file into a running call by using the [/calls/{callId}/announcements](/v2.0/reference#startcallannouncement) endpoint. All you need is the `callId`, a WAV file and your `access_token`:
+You can inject any WAV file into a running call by using the [/calls/{callId}/announcements][swagger] endpoint. All you need is the `callId`, a WAV file and your `access_token`:
 
 ```bash
 curl \
@@ -199,7 +199,7 @@ mpg123 --rate 8000 --mono -w output.wav input.mp3
 
 ### How to hang up a call
 
-Use the [DELETE /calls/{callId}](/v2.0/reference#hangupcall) endpoint to terminate a running call. All you need is the `callId` and your `access_token`:
+Use the [DELETE /calls/{callId}][swagger] endpoint to terminate a running call. All you need is the `callId` and your `access_token`:
 
 ```bash
 curl \
@@ -210,3 +210,4 @@ curl \
 --url https://api.sipgate.com/v2/calls/<callId>
 ```
 
+[swagger]: https://api.sipgate.com/v2/doc

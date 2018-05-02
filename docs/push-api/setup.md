@@ -25,4 +25,5 @@ We will now show you how to configure your URLs.
    ![Navigate to the sipgate.io category and click on "Incoming calls" or "Outgoing calls".](../img/configure-sipgate-io-step4.png)
 
 2. Enter your URL and hit "Save".
+
    ![Enter your URL and hit "Save".](../img/configure-sipgate-io-step5.png)

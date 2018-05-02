@@ -2,7 +2,7 @@
 
 ## Web console
 
-You can easyly manage your API clients with the api web console located at https://console.sipgate.com. 
+You can easyly manage your API clients with the api web console located at [console.sipgate.com](https://console.sipgate.com).
 
 ## CLI or Programmatic way
 
@@ -41,7 +41,7 @@ The response will contain a `token` which can be used as `access_token`:
 
 ### Using OAuth 2.0 authentication
 
-Read the chapter on [OAuth 2.0 Authentication](doc:authentication) to obtain an `access_token`.
+Read the chapter on [OAuth 2.0 Authentication](authentication#oauth2) to obtain an `access_token`.
 
 
 
