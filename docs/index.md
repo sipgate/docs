@@ -4,17 +4,17 @@
 
 We opened up our telephony systems for you to build integrations and get the most out of it.
 
-## [REST API][rest-api]
+## [REST API][rest-api/authentication]
 
 We build our applications using this API and we invite you to use it too.
 
-[Check out the official documentation.][rest-api]
+[Check out the official documentation.][rest-api/authentication]
 
-## [Push API][push-api]
+## [Push API][push-api/setup]
 
 sipgate.io passes call meta data to your web server in real-time.
 
-[Check out the official documentation.][push-api]
+[Check out the official documentation.][push-api/setup]
 
 ## [XML-RPC API][xml-rpc-api]
 
