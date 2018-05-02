@@ -65,8 +65,6 @@ As stated above, the first things you need are client credentials. You can get t
 
 Since OAuth2 is standardized and well supported, there are a lot of libraries covering the authentication process for any language. To save time and reduce the risk of potential security failures, we highly encourage you to use such libraries. 
 
-TODO: List some libraries
-
 #### Step 1: Sending the user to our authentication system
 
 The authentication screen is accessible at: 
