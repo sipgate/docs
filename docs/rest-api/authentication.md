@@ -156,7 +156,7 @@ Our authentication system will provide the tokens as response to this query.
 
 The response to the query explained in step 3 looks like: 
 
-```
+```json
 {
    "session_state" : "32c512d5-ccf2-4103-9555-a85d924f7d52",
    "token_type" : "bearer",
