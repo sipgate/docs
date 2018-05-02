@@ -19,7 +19,7 @@ There are currently two ways to obtain an `access_token`:
  
 You can obtain an `access_token` by using the following curl command:
 
-```shell
+```bash
 curl \
 --request POST \
 --header 'Content-Type: application/x-www-form-urlencoded' \

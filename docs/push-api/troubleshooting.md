@@ -20,7 +20,7 @@ Your request should be logged and look like this.
 ### Inspect incoming network traffic
 
 You can use `ngrep` to inspect incoming requests 
-```shell
+```bash
 sudo ngrep -dany -Wbyline port 3000
 ```
 

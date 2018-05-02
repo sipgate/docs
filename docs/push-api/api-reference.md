@@ -19,7 +19,7 @@ fullUserId[] | The full IDs of sipgate user(s) involved (e.g. `1234567w0`).
 
 You can simulate this POST request and test your server with a cURL command:
 
-```sh
+```bash
 curl \
   -X POST \
   --data "event=newCall&from=492111234567&to=4915791234567&direction=in&callId=123456&user[]=Alice&user[]=Bob&userId[]=w0&userId[]=w1&fullUserId[]=1234567w0&fullUserId[]=1234567w1" \
@@ -151,7 +151,7 @@ Url       | Play a sound file from a given URL
 **Please note:** Currently the sound file needs to be a mono 16bit PCM WAV file with a sampling rate of 8kHz. You can use conversion tools like the open source audio editor [Audacity](http://audacity.sourceforge.net/) to convert any sound file to the correct format.
 
 Linux users might want to use ```mpg123``` to convert the file:
-```sh
+```bash
 mpg123 --rate 8000 --mono -w output.wav input.mp3
 ```
 
@@ -262,7 +262,7 @@ answeringNumber | The number of the answering destination. Useful when redirecti
 
 You can simulate this POST request and test your server with a cURL command:
 
-```sh
+```bash
 curl \
   -X POST \
   --data "event=answer&callId=123456&user=John+Doe&userId=w0&fullUserId=1234567w0&from=492111234567&to=4915791234567&direction=in&answeringNumber=21199999999" \
@@ -298,7 +298,7 @@ answeringNumber | The number of the answering destination. Useful when redirecti
 
 You can simulate this POST request and test your server with a cURL command:
 
-```sh
+```bash
 curl \
   -X POST \
   --data "event=hangup&cause=normalClearing&callId=123456&from=492111234567&to=4915791234567&direction=in&answeringNumber=4921199999999" \
@@ -336,7 +336,7 @@ callId    | Same as in newCall-event for a specific call
 
 You can simulate this POST request and test your server with a cURL command:
 
-```sh
+```bash
 curl \
   -X POST \
   --data "event=dtmf&dtmf=1&callId=123456" \

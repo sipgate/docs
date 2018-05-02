@@ -7,18 +7,18 @@ The sipgate.io API cannot reach your project if the computer running it is behin
 
 Download ngrok for linux (amd64)
 
-```shell
+```bash
 wget https://dl.ngrok.com/ngrok_2.0.17_linux_amd64.zip -O ngrok.zip
 ```
 
 Download ngrok for osx
 
-```shell
+```bash
 wget https://dl.ngrok.com/ngrok_2.0.17_darwin_amd64.zip -O ngrok.zip
 ```
 Run ngrok
 
-```shell
+```bash
 unzip ngrok.zip
 ./ngrok http 9000
 ```

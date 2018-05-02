@@ -85,7 +85,7 @@ Example URL:
     https://api.sipgate.com/login/third-party/protocol/openid-connect/auth?client_id=2556404-0-dc848ae6-085c-11e8-92a6-31b99c83912e&redirect_uri=https%3A%2F%2Fyour.application%2Fauthorize.com&scope=balance%3Aread&response_type=code
   
 Generate the URL with Javascript: 
-  
+  ```js
     const apiAuthUrl = 'https://api.sipgate.com/login/third-party/protocol/openid-connect/auth'
       + queryString.stringify({
           client_id: '2556404-0-dc848ae6-085c-11e8-92a6-31b99c83912e',
@@ -93,6 +93,7 @@ Generate the URL with Javascript:
           scope: 'balance:read',
           response_type: 'code',
       });  
+```
 
 If redirected to the authentication screen, the user can login into the authorization system with his sipgate username and password. 
 
