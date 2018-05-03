@@ -37,7 +37,7 @@ OAuth2 is an authentication method that enables a service provider to handle for
 
 ### General authentication flow
 
-TODO: Explain scopes
+<!-- TODO: Explain scopes -->
 
 Since the authentication with OAuth2 tends to be confusing, here a few lines of what we've learned so far.
  
@@ -47,7 +47,7 @@ First thing to understand the authorization process is identifying three parties
 3. Resource owner: The resource owner uses services delivered by the service provider and owns resources hosted by the resource provider. The resource owner is called the "user" below.  
 2. Resource provider: The resource provider maintains resources that belong to the resource owner. sipgate is the resource provider in our case and "we" or "sipgate" refers to the resource provider below. 
 
-To use OAuth2 you need special client credentials to authenticate your application against our authentication system. You can get these credentials in less than 5 minutes - please refer to the [sipgate console documentation]() to learn how. 
+To use OAuth2 you need special client credentials to authenticate your application against our authentication system. You can get these credentials in less than 5 minutes - please refer to the [sipgate console documentation](managing-third-party-clients#web-console) to learn how. 
 
 The OAuth2 authentication flow consists of several steps. 
 
@@ -59,8 +59,7 @@ The OAuth2 authentication flow consists of several steps.
 
 ### OAuth2 in the real life
 
-As stated above, the first things you need are client credentials. You can get them at the [sipgate console](https://console.sipgate.com).
-<!-- TODO: Add console docs, insert link and uncoment following: Learn [here](), how to use the console. -->
+As stated above, the first things you need are client credentials. You can get them at the [sipgate console](https://console.sipgate.com).  Learn [here](managing-third-party-clients#web-console), how to use the console.
 
 #### Use a ready to use library
 
