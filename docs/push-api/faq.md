@@ -38,3 +38,6 @@ Here are the pushes sipgate.io will send to your server:
 The answer is: It depends.  
 If you transfer or forward a call within the same sipgate account then the answer is no. But if you forward or transfer a call to a different sipgate account or an external number then those pushes are being billed to your account.
 
+## What about Emergency calls?
+
+sipgate.io does not process emergency calls. Emergency calls are immediately put through to emergency services.

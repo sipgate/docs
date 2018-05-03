@@ -22,6 +22,11 @@ Way back in 2005 we released our first API called SAMURAI. The API is still usab
 
 [Check out the XML-RPC API specification.][xml-rpc-api]
 
+## Please help us to improve
+ 
+ If you have a specific feature request, found a bug or would like to add an example, please use [GitHub Issues](https://github.com/sipgate/docs/issues) or fork these docs and send a [pull request](https://github.com/sipgate/docs/pulls) with your improvements.
+
+
 [rest-api]: ./rest-api/authentication.md
 [push-api]: ./push-api/setup.md
 [xml-rpc-api]: http://www.sipgate.de/static/sipgate.de/downloads/api/sipgate_API.pdf
