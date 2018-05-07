@@ -1,5 +1,5 @@
 site_name: sipgate Developer
-site_url: https://sipgate.github.io/docs
+site_url: https://developer.sipgate.io
 site_description: Developer documentation for all sipgate APIs
 
 theme:
