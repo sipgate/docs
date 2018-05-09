@@ -16,7 +16,7 @@ sipgate.io passes call meta data to your web server in real-time.
 
 [Check out the official documentation.][push-api]
 
-## [XML-RPC API][xml-rpc-api]
+## [XML-RPC API][xml-rpc-api] (deprecated)
 
 Way back in 2005 we released our first API called SAMURAI. The API is still usable but no longer under active development. We advise you to use our [REST API][rest-api] instead. 
 
