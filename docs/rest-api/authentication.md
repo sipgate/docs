@@ -87,7 +87,7 @@ Example URL:
   
 Generate the URL with Javascript: 
 ```js
-    const apiAuthUrl = 'https://api.sipgate.com/login/third-party/protocol/openid-connect/auth'
+    const apiAuthUrl = 'https://api.sipgate.com/login/third-party/protocol/openid-connect/auth?'
       + queryString.stringify({
           client_id: '2556404-0-dc848ae6-085c-11e8-92a6-31b99c83912e',
           redirect_uri: 'https://your.application.com/authorize',
