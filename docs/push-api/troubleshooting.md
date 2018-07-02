@@ -2,20 +2,17 @@
 
 ## Enable debug log
 
-You can enable logging for debugging purposes from your dashboard. You will find each request and the corresponding response in the logging table.
+You can enable logging for debugging purposes from your [webhooks dashboard](https://console.sipgate.com/webhooks). You will find each request and the corresponding response in the logging table.
 
-![Click on "Activate debug log", read and confirm the security warning.](../img/debug-sipgate-io-step1.png)
+1. Click on "Activate debug log".
+    ![Click on "Activate debug log".](../img/debug-sipgate-io-step1.png)
 
-Click on "Activate debug log", read and confirm the security warning.
+2. To view the logged requests, click on "Debug log" in the menu on the left.
+    ![To view the logged requests, click on "Debug log" in the menu on the left.](../img/debug-sipgate-io-step2.png)
 
-![To view the logged requests, click on the icon within the "Activate debug log" row.](../img/debug-sipgate-io-step2.png)
+3. Your request should be logged and look like this.
+    ![Your request should be logged and look like this.](../img/debug-sipgate-io-step3.png)
 
-To view the logged requests, click on the icon within the "Activate debug log" row.
-
-
-![Your request should be logged and look like this.](../img/debug-sipgate-io-step3.png)
-
-Your request should be logged and look like this.
 
 ### Inspect incoming network traffic
 
