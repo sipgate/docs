@@ -7,7 +7,7 @@ theme:
   logo: 'img/logo.png'
   favicon: 'img/favicon.ico'
   palette:
-    primary: 'teal'
+    primary: 'grey'
   feature:
     tabs: true
 
