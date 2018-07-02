@@ -21,9 +21,11 @@ We will now show you how to book sipgate.io using the Feature Store.
 
 We will now show you how to configure your URLs.
 
-1. Navigate to the sipgate.io category and click on "Incoming calls" or "Outgoing calls"
-   ![Navigate to the sipgate.io category and click on "Incoming calls" or "Outgoing calls".](../img/configure-sipgate-io-step4.png)
+1. Select **sipgate.io** in the top right menu to navigate to your settings section.
+   ![Select sipgate.io in the top right menu to navigate to your settings section.](../img/configure-sipgate-io-step4.png)
 
-2. Enter your URL and hit "Save".
+2. Navigate to "Webhooks", "URLs" and click on "Incoming calls" or "Outgoing calls".
+   ![Navigate to "Webhooks", "URLs" and click on "Incoming calls" or "Outgoing calls".](../img/configure-sipgate-io-step5.png)
 
-   ![Enter your URL and hit "Save".](../img/configure-sipgate-io-step5.png)
+3. Enter your URL and hit "Save".
+   ![Enter your URL and hit "Save".](../img/configure-sipgate-io-step6.png)
