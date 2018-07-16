@@ -342,3 +342,8 @@ curl \
   --data "event=dtmf&dtmf=1&callId=123456" \
   http://localhost:3000
 ```
+
+## Advanced scenarios
+
+In addition to answering push requests synchronously you can interact with calls in real time through our [RTCM-API](/rest-api/rtcm). Use the `callId` parameter that is included in every push request.
+
