@@ -38,6 +38,10 @@ Here are the pushes sipgate.io will send to your server:
 The answer is: It depends.  
 If you transfer or forward a call within the same sipgate account then the answer is no. But if you forward or transfer a call to a different sipgate account or an external number then those pushes are being billed to your account.
 
+## I want to implement more complex interaction scenarios and can't answer to a push request directly. Can I control a call asynchronously?
+
+In every push request the `callId` parameter is included to identify the current call. Use the `callId` to manipulate the call at any time with our [RTCM-API](/rest-api/rtcm).
+
 ## What about Emergency calls?
 
 sipgate.io does not process emergency calls. Emergency calls are immediately put through to emergency services.
