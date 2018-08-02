@@ -185,6 +185,16 @@ The following verbs can be nested within ```<Gather>```:
 </Response>
 ```
 
+A configured gather action always triggers a push event, regardless if the callee sent any DTMF data or not. The push contains following values: 
+
+
+Key      | Value 
+-------- | --------------
+event    | The string 'dtmf' 
+callId   | Unique identifier of the running call, e.g. '54566B150B0C0D3A5D544C' 
+dtmf     | The DTMF data sent by the callee, e.g. '1234', completely ommited if the callee sent no data
+
+
 #### Reject
 
 Pretend to be busy or block unwanted calls.
