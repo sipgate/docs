@@ -34,7 +34,7 @@ Redirect a user to our authorization server to acquire an access grant code. The
 
 ```js
 const queryString = require('querystring');
-const apiAuthUrl = 'https://api.sipgate.com/login/third-party/protocol/openid-connect/auth'
+const apiAuthUrl = 'https://login.sipgate.com/auth/realms/third-party/protocol/openid-connect/auth'
   + queryString.stringify({
       client_id: 'YOUR_API_CLIENT_ID',
       redirect_uri: 'http://localhost:3000/authorize',
@@ -51,7 +51,7 @@ In this example the token is kept in memory using the [express-session middlewar
 
 ```js
 const authorizationCode = req.query.code;
-const apiTokenUrl = "https://api.sipgate.com/login/third-party/protocol/openid-connect/token";
+const apiTokenUrl = "https://login.sipgate.com/auth/realms/third-party/protocol/openid-connect/token";
 
 request.post({
   url: apiTokenUrl,
