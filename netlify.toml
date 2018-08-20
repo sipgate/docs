@@ -1,0 +1,9 @@
+[[redirects]]
+  from = "/v2.0/*"
+  to = "/rest-api/"
+  status = 301
+
+[[redirects]]
+  from = "/rest-api"
+  to = "/rest-api/authentication/"
+  status = 301
