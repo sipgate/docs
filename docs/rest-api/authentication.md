@@ -1,22 +1,22 @@
 # Authentication
 
-To access any resource provided by the sipgate REST API,  you have to send credentials with every request. How these credentials look like depends on the authentication method you choose. 
+To access any resource provided by the sipgate REST API,  you have to send credentials with every request. How these credentials look like depends on the authentication method you choose.
 
- 
-sipgate currently offers [Basic Authentication](#basic-auth) and [OAuth2](#oauth2). Basic Authentication is very convenient and easy to implement. Applications that need to read or write private information using the API on behalf of another user should use OAuth2. 
+
+sipgate currently offers [Basic Authentication](#basic-auth) and [OAuth2](#oauth2). Basic Authentication is very convenient and easy to implement. Applications that need to read or write private information using the API on behalf of another user should use OAuth2.
 
 
 ## Basic Auth
 
 Basic Auth is an easy to use, well known and well supported authentication method. There is a lot of documentation about this authentication method in the internet, e.g: [Wikipedia](https://de.wikipedia.org/wiki/HTTP-Authentifizierung#Basic_Authentication) or [RFC 2617](https://www.ietf.org/rfc/rfc2617.txt).
 
-To use Basic Auth, you simply have to provide an Authorization header with each request. The header takes the keyword `Basic` followed by a blank and a credential string. The credentials string is `username:password` Base64 encoded. 
+To use Basic Auth, you simply have to provide an Authorization header with each request. The header takes the keyword `Basic` followed by a blank and a credential string. The credentials string is `username:password` Base64 encoded.
 
-E.g., if your username was `John` and your password was `topsecret`, your plaintext credentials string would be `John:topsecret`. The Base64 encoded string would be `Sm9objp0b3BzZWNyZXQ=`.  
+E.g., if your username was `John` and your password was `topsecret`, your plaintext credentials string would be `John:topsecret`. The Base64 encoded string would be `Sm9objp0b3BzZWNyZXQ=`.
 
 The complete Header would look like:
 
-``` 
+```
 Authorization: Basic Sm9objp0b3BzZWNyZXQ=
 ```
 
@@ -29,6 +29,14 @@ curl \
   https://api.sipgate.com/v2/account
 ```
 
+Use the `--user` flag to let curl handle the Base64 encoding.
+```bash
+curl \
+  --request GET \
+  --header "Accept: application/json" \
+  --user <your_sipgate_username>:<your_sipgate_password> \
+  https://api.sipgate.com/v2/account
+```
 
 ## OAuth2
 
@@ -40,21 +48,21 @@ OAuth2 is an authentication method that enables a service provider to handle for
 <!-- TODO: Explain scopes -->
 
 Since the authentication with OAuth2 tends to be confusing, here a few lines of what we've learned so far.
- 
-First thing to understand the authorization process is identifying three parties: 
 
-1. Service provider: The service provider delivers value to its users. These users own resources at another service - the resource provider. The documentation below assumes that you are a service provider, because of that "you" means the part of the service provider in this document. 
-3. Resource owner: The resource owner uses services delivered by the service provider and owns resources hosted by the resource provider. The resource owner is called the "user" below.  
-2. Resource provider: The resource provider maintains resources that belong to the resource owner. sipgate is the resource provider in our case and "we" or "sipgate" refers to the resource provider below. 
+First thing to understand the authorization process is identifying three parties:
 
-To use OAuth2 you need special client credentials to authenticate your application against our authentication system. You can get these credentials in less than 5 minutes - please refer to the [sipgate console documentation](managing-third-party-clients#web-console) to learn how. 
+1. Service provider: The service provider delivers value to its users. These users own resources at another service - the resource provider. The documentation below assumes that you are a service provider, because of that "you" means the part of the service provider in this document.
+3. Resource owner: The resource owner uses services delivered by the service provider and owns resources hosted by the resource provider. The resource owner is called the "user" below.
+2. Resource provider: The resource provider maintains resources that belong to the resource owner. sipgate is the resource provider in our case and "we" or "sipgate" refers to the resource provider below.
 
-The OAuth2 authentication flow consists of several steps. 
+To use OAuth2 you need special client credentials to authenticate your application against our authentication system. You can get these credentials in less than 5 minutes - please refer to the [sipgate console documentation](managing-third-party-clients#web-console) to learn how.
 
-1. Send your user to the initial authentication screen provided by sipgate. 
-2. The authentication system redirects the user back to your application and provides you a nonce, a use once code. 
-3. Use this code along with your client credentials and send them to the authentication system. 
-4. The authentication system provides you an access token and a refresh token. The access token grants you access to your users resources for a few minutes. 
+The OAuth2 authentication flow consists of several steps.
+
+1. Send your user to the initial authentication screen provided by sipgate.
+2. The authentication system redirects the user back to your application and provides you a nonce, a use once code.
+3. Use this code along with your client credentials and send them to the authentication system.
+4. The authentication system provides you an access token and a refresh token. The access token grants you access to your users resources for a few minutes.
 5. If the access token lifespan comes to the end, you can take the refresh token to request a new access token from out the authentication system.
 
 ### OAuth2 in the real life
@@ -63,29 +71,29 @@ As stated above, the first things you need are client credentials. You can get t
 
 #### Use a ready to use library
 
-Since OAuth2 is standardized and well supported, there are a lot of libraries covering the authentication process for any language. To save time and reduce the risk of potential security failures, we highly recommend to use such libraries. 
+Since OAuth2 is standardized and well supported, there are a lot of libraries covering the authentication process for any language. To save time and reduce the risk of potential security failures, we highly recommend to use such libraries.
 
 #### Step 1: Sending the user to our authentication system
 
-The authentication screen is accessible at: 
+The authentication screen is accessible at:
 
 ```
     https://login.sipgate.com/auth/realms/third-party/protocol/openid-connect/auth
 ```
 
-The URL must contain some mandatory query parameters: 
+The URL must contain some mandatory query parameters:
 
 - client_id: Your client id, something like 2556404-0-dc848ae6-085c-11e8-92a6-31b99c83912e
 - redirect_uri: The uri we should send the user after the authorization. Something like https://your.application.com/authorize
 - scope: Scopes the user should grant access to, e.g: balance:read
 - response_type: Always 'code'
 
-Example URL: 
+Example URL:
 ```
     https://login.sipgate.com/auth/realms/third-party/protocol/openid-connect//auth?client_id=2556404-0-dc848ae6-085c-11e8-92a6-31b99c83912e&redirect_uri=https%3A%2F%2Fyour.application%2Fauthorize.com&scope=balance%3Aread&response_type=code
 ```
-  
-Generate the URL with Javascript: 
+
+Generate the URL with Javascript:
 ```js
     const apiAuthUrl = 'https://login.sipgate.com/auth/realms/third-party/protocol/openid-connect/auth?'
       + queryString.stringify({
@@ -93,10 +101,10 @@ Generate the URL with Javascript:
           redirect_uri: 'https://your.application.com/authorize',
           scope: 'balance:read',
           response_type: 'code',
-      });  
+      });
 ```
 
-If redirected to the authentication screen, the user can login into the authorization system with his sipgate username and password. 
+If redirected to the authentication screen, the user can login into the authorization system with his sipgate username and password.
 
 ![Login screen](../img/login_screen.png)
 
@@ -104,28 +112,28 @@ If successfully authenticated, the user will be asked to grant the requested acc
 
 ![Grant screen](../img/grant_screen.png)
 
-Granting the requested scopes finishes the user interaction and leads to step 2. 
+Granting the requested scopes finishes the user interaction and leads to step 2.
 
 #### Step 2: Get the code ####
 
-The authentication system appends a single use code as a query string to the previously provided redirect uri and redirects the user to that location. 
+The authentication system appends a single use code as a query string to the previously provided redirect uri and redirects the user to that location.
 
 The resulting URL looks like:
 ```
     https://your.application.com/?code=2Eamxyz7vQLiHyGqklDox5l1NIDaJ0Fd08ngBaeVNtM.0714e913-f108-4e45-8ad4-976d39dfe0c2
 ```
- 
-You can take this code and build your request for step 3. 
+
+You can take this code and build your request for step 3.
 
 #### Step 3: Request access and refresh token ####
 
-To request access and a refresh tokens for the user, you need to send your client credentials and the previously fetched code to the authentication system. To get the tokens you have to send a post request against: 
+To request access and a refresh tokens for the user, you need to send your client credentials and the previously fetched code to the authentication system. To get the tokens you have to send a post request against:
 
 ```
     https://login.sipgate.com/auth/realms/third-party/protocol/openid-connect/token
 ```
 
-The parameters you need to provide, form encoded, are: 
+The parameters you need to provide, form encoded, are:
 
 - client_id: Your client id, something like 2556404-0-dc848ae6-085c-11e8-92a6-31b99c83912e
 - client_secret:  Your client secret, something like a1138f1-7-dc848ae6-99aa-23ed-23a4-b7da6846f141
@@ -136,7 +144,7 @@ The parameters you need to provide, form encoded, are:
 ```js
     const authorizationCode = req.query.code;
     const apiTokenUrl = "https://login.sipgate.com/auth/realms/third-party/protocol/openid-connect/token";
-    
+
     const response = request.post({
       url: apiTokenUrl,
       form: {
@@ -144,7 +152,7 @@ The parameters you need to provide, form encoded, are:
         client_secret: 'YOUR_API_CLIENT_SECRET',
         code: authorizationCode,
         redirect_uri: 'http://localhost:3000/authorize',
-        grant_type: 'authorization_code',    
+        grant_type: 'authorization_code',
       },
     })
 ```
@@ -153,7 +161,7 @@ Our authentication system will provide the tokens as response to this query.
 
 #### Step 4: Retrieve access and refresh token ####
 
-The response to the query explained in step 3 looks like this: 
+The response to the query explained in step 3 looks like this:
 
 ```json
 {
@@ -168,7 +176,7 @@ The response to the query explained in step 3 looks like this:
 }
 ```
 
-The following snippet shows the request from step 3 and extracts the access code out of the response.  
+The following snippet shows the request from step 3 and extracts the access code out of the response.
 
 ```js
 const authorizationCode = req.query.code;
@@ -181,7 +189,7 @@ const response = request.post({
     client_secret: 'YOUR_API_CLIENT_SECRET',
     code: authorizationCode,
     redirect_uri: 'http://localhost:3000/authorize',
-    grant_type: 'authorization_code',    
+    grant_type: 'authorization_code',
   },
 }).then(function (body) {
   const response = JSON.parse(body);
@@ -193,7 +201,7 @@ const response = request.post({
 });
 ```
 
-Now you are ready to access the sipgate api. To do so, you have to send the `access token` as authozization header. If your access code was f123b4214b3124312b, the header would be: 
+Now you are ready to access the sipgate api. To do so, you have to send the `access token` as authozization header. If your access code was f123b4214b3124312b, the header would be:
 
 ```
   Authorization: Bearer f123b4214b3124312b
@@ -201,13 +209,13 @@ Now you are ready to access the sipgate api. To do so, you have to send the `acc
 
 #### Step 5: Refresh the access token ####
 
-Due to security reasons, the access token obtained in step 4 has a very limited lifetime of usually 5 minutes. To prevent your user from logging in every 5 minutes, OAuth2 provides a token refresh mechanism. To get a new `access token`, you have to send the corresponding `refresh token` as well as your `client id` and `client secret` to our authentication system at: 
+Due to security reasons, the access token obtained in step 4 has a very limited lifetime of usually 5 minutes. To prevent your user from logging in every 5 minutes, OAuth2 provides a token refresh mechanism. To get a new `access token`, you have to send the corresponding `refresh token` as well as your `client id` and `client secret` to our authentication system at:
 
 ```
     https://login.sipgate.com/auth/realms/third-party/protocol/openid-connect/token
 ```
 
-Provide following data form encoded within a POST request: 
+Provide following data form encoded within a POST request:
 
 - client_id: Your client id, something like 2556404-0-dc848ae6-085c-11e8-92a6-31b99c83912e
 - client_secret:  Your client secret, something like a1138f1-7-dc848ae6-99aa-23ed-23a4-b7da6846f141
@@ -228,7 +236,7 @@ curl \
   https://login.sipgate.com/auth/realms/third-party/protocol/openid-connect/token
 ```
 
-Our authentication system will provide a new set of `access token` and `refresh token` with a response like the following: 
+Our authentication system will provide a new set of `access token` and `refresh token` with a response like the following:
 
 ```json
 {
@@ -243,4 +251,4 @@ Our authentication system will provide a new set of `access token` and `refresh 
 }
 ```
 
-You can extract the tokens just a explained in step 4. 
+You can extract the tokens just a explained in step 4.
