@@ -25,7 +25,7 @@ Example:
 curl \
   --request GET \
   --header "Accept: application/json" \
-  --user <your_sipgate_username>:<your_sipgate_password> \
+  --header "Authorization: Basic Sm9objp0b3BzZWNyZXQ=" \
   https://api.sipgate.com/v2/account
 ```
 
