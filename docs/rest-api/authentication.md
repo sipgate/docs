@@ -90,7 +90,7 @@ The URL must contain some mandatory query parameters:
 
 Example URL:
 ```
-    https://login.sipgate.com/auth/realms/third-party/protocol/openid-connect//auth?client_id=2556404-0-dc848ae6-085c-11e8-92a6-31b99c83912e&redirect_uri=https%3A%2F%2Fyour.application%2Fauthorize.com&scope=balance%3Aread&response_type=code
+    https://login.sipgate.com/auth/realms/third-party/protocol/openid-connect/auth?client_id=2556404-0-dc848ae6-085c-11e8-92a6-31b99c83912e&redirect_uri=https%3A%2F%2Fyour.application%2Fauthorize.com&scope=balance%3Aread&response_type=code
 ```
 
 Generate the URL with Javascript:
