@@ -201,7 +201,7 @@ const response = request.post({
 });
 ```
 
-Now you are ready to access the sipgate api. To do so, you have to send the `access token` as authozization header. If your access code was f123b4214b3124312b, the header would be:
+Now you are ready to access the sipgate api. To do so, you have to send the `access token` as authorization header. If your access code was f123b4214b3124312b, the header would be:
 
 ```
   Authorization: Bearer f123b4214b3124312b
