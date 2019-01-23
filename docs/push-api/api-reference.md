@@ -16,6 +16,7 @@ callId       | A unique alphanumeric identifier to match events to specific call
 user[]       | The sipgate user(s) involved. It is the name of the calling user when direction is `"out"`, or of the users receiving the call when direction is `"in"`. Group calls may be received by multiple users. In that case a `"user[]"` parameter is set for each of these users. It is always `"user[]"` (not `"user"`), even if only one user is involved.
 userId[]     | The IDs of sipgate user(s) involved (e.g. `w0`).
 fullUserId[] | The full IDs of sipgate user(s) involved (e.g. `1234567w0`).
+xcid	     | Another unique alphanumeric identifier to match events to specific calls
 
 You can simulate this POST request and test your server with a cURL command:
 
