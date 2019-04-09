@@ -16,7 +16,7 @@ You only have to add the `Authorization: Bearer <access_token>` header to your r
 There are currently two ways to obtain an `access_token`:
 
 ### Login via sipgate OAuth2
- 
+
 You can obtain an `access_token` by using the following curl command:
 
 ```bash
@@ -24,7 +24,7 @@ curl \
 --request POST \
 --header 'Content-Type: application/x-www-form-urlencoded' \
 --header 'Accept: application/json' \
---data-urlencode "client_id=sipgate-app-web" \
+--data-urlencode "client_id=<your_client_id>" \
 --data-urlencode "grant_type=password" \
 --data-urlencode "username=<your_sipgate_email>" \
 --data-urlencode "password=<your_sipgate_password>" \
