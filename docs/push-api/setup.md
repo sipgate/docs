@@ -8,7 +8,7 @@ To begin developing applications using webhooks you first need to create a sigpg
 
 We will now show you how to book sipgate.io using the Feature Store.
 
-1. Log into your shiny, new sipgate account and go to the Feature Store. You can find a link in the navigation.
+1. Log into your shiny, new sipgate account and go to the Feature Store. You can find a link in the top right corner, next to the drop-down menu.
    ![Book sipgate.io](../img/configure-sipgate-io-step1.png)
 
 2. Within the Feature Store click on the sipgate.io feature. It should look like this.
@@ -21,7 +21,7 @@ We will now show you how to book sipgate.io using the Feature Store.
 
 We will now show you how to configure your URLs.
 
-1. Select **sipgate.io** in the top right menu to navigate to your settings section.
+1. Select **sipgate.io** in the left-side navigation menu to open the settings section.
    ![Select sipgate.io in the top right menu to navigate to your settings section.](../img/configure-sipgate-io-step4.png)
 
 2. Navigate to "Webhooks", "URLs" and click on "Incoming calls" or "Outgoing calls".
