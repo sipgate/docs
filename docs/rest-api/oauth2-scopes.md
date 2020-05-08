@@ -5,81 +5,107 @@ Scopes are used to grant an application different levels of access to data on be
 !!! info "A word about security"
     It is generally a good idea to only use a minimal set of scopes to maximize security.
 
-| Scope name | Description |
-|----------- |-------------|
-| `all` | Full access |
-| `contacts:read` | Read contact information |
-| `devices:localprefix:read` | Read your device settings for localprefix |
-| `devices:sim:read` | Read your sim device settings |
-| `devices:tariffannouncement:write` | Modify your device settings for tariff announcement |
-| `phonelines:blockanonymous:read` | Read your block anonymous settings |
-| `phonelines:blockanonymous:write` | Change your block anonymous settings |
-| `phonelines:devices:write` | Modify your phone line devices |
-| `phonelines:forwardings:read` | Read your phone line forwardings |
-| `phonelines:read` | Read your phone line settings |
-| `phonelines:sipgateio:read` | Read your phone line sipgate.io settings |
-| `phonelines:sipgateio:write` | Modify your phone line sipgate.io settings |
-| `phonelines:voicemails:greetings:write` | Modify your phone line voicemail greetings |
-| `phonelines:voicemails:read` | Read your phone line voicemails |
-| `phonelines:write` | Modify our phone line settings |
-| `portings:read` | Read your portings |
-| `push_device:register` | Register device for push notifications |
-| `sessions:sms:write` | Send SMS |
-| `settings:sipgateio:write` | Modify your sipgate.io settings |
-| `sms:callerid:write` | Modify your short message services |
-| `sms:write` | Modify your short message services |
-| `users:read` | Read user information |
-| `account:read` | Read account information |
-| `account:write` | Modify your account |
-| `addresses:read` | Read address information |
-| `addresses:write` | Modify your addresses |
-| `authorization:oauth:clients:read` | Read your oauth clients |
-| `authorization:oauth:clients:write` | Modify your oauth clients |                                                                                                                                                                                                            
-| `balance:read` | Read balance information |                                                                                                                                                                                                                                  
-| `contacts:write` | Write contact information |                                                                                                                                                                                                                               
-| `devices:callerid:read` | Read your device settings for callerId |                                                                                                                                                                                                           
-| `devices:callerid:write` | Modify your device settings for callerId |                                                                                                                                                                                                        
-| `devices:localprefix:write` | Modify your device settings for localprefix |                                                                                                                                                                                                  
-| `devices:read` | Read your devices |                                                                                                                                                                                                                                         
-| `devices:sim:write` | Modify your sim device settings |                                                                                                                                                                                                                      
-| `devices:sims:orders:write` | Order new SIM cards |                                                                                                                                                                                                                          
-| `devices:singlerowdisplay:read` | Read your device settings for single row display |                                                                                                                                                                                         
-| `devices:singlerowdisplay:write` | Modify your device settings for single row display |                                                                                                                                                                                      
-| `devices:tariffannouncement:read` | Read your device settings for tariff announcement |                                                                                                                                                                                      
-| `devices:write` | Modify your devices |                                                                                                                                                                                                                                      
-| `faxlines:numbers:read` | Read your fax line numbers |                                                                                                                                                                                                                       
-| `faxlines:read` | Read your fax line settings |                                                                                                                                                                                                                              
-| `faxlines:write` | Modify your fax line settings |                                                                                                                                                                                                                           
-| `groups:devices:write` | Modify your group devices |                                                                                                                                                                                                                         
-| `groups:faxlines:read` | Read your group faxlines |                                                                                                                                                                                                                          
-| `groups:numbers:read` | Read numbers routed to your groups |                                                                                                                                                                                                                 
-| `groups:read` | Read your groups |                                                                                                                                                                                                                                           
-| `groups:users:read` | Read your group members |                                                                                                                                                                                                                              
-| `groups:voicemails:read` | Read your group voicemails |                                                                                                                                                                                                                      
-| `history:read` | Read your history |                                                                                                                                                                                                                                         
-| `history:write` | Modify your history |                                                                                                                                                                                                                                      
-| `notifications:read` | Read notifications |                                                                                                                                                                                                                                  
-| `notifications:write` | Modify notifications |                                                                                                                                                                                                                               
-| `numbers:read` | Read your numbers |                                                                                                                                                                                                                                         
-| `numbers:write` | Route numbers to phone lines |                                                                                                                                                                                                                             
-| `openid` | Identify you uniquely through your sipgate login |                                                                                                                                                                                                                
-| `phonelines:busyonbusy:read` | Read your busy on busy settings |                                                                                                                                                                                                             
-| `phonelines:busyonbusy:write` | Change your busy on busy settings |                                                                                                                                                                                                          
-| `phonelines:devices:read` | Read your phone line devices |                                                                                                                                                                                                                   
-| `phonelines:forwardings:write` | Modify your phone line forwardings |                                                                                                                                                                                                        
-| `phonelines:numbers:read` | Read your phone line numbers |
-| `phonelines:parallelforwardings:read` | Read your parallel forwardings |
-| `phonelines:parallelforwardings:write` | Modify your parallel forwardings |
-| `phonelines:sipgateio:log:read` | Read your phone line sipgate.io log |
-| `phonelines:voicemails:greetings:read` | Read your phone line voicemail greetings |
-| `phonelines:voicemails:write` | Modify your phone line voicemails |
-| `portings:write` | Modify your portings |
-| `sessions:calls:write` | Initiate phone calls |
-| `sessions:fax:write` |Send Fax |
-| `sessions:write` | Initiate sessions |
-| `settings:read` | Read your settings |
-| `settings:sipgateio:read` | Read your sipgate.io settings |
-| `settings:write` | Modify your settings |
-| `sms:callerid:read` | Read your short message services |
-| `sms:read` | Read your short message services |
-| `users:defaultdevice:write` | Modify your default device settings |
+| Scope name                              | Description                                       |
+| --------------------------------------- | ------------------------------------------------- |
+| `account:read`                          | Access account details                            |
+| `account:write`                         | Manage account details                            |
+| `addresses:read`                        | Access addresses                                  |
+| `addresses:write`                       | Manage addresses                                  |
+| `authorization:oauth:clients:read`      | Access OAuth clients                              |
+| `authorization:oauth:clients:write`     | Manage OAuth clients                              |
+| `authorization:oauth2:clients:read`     | Access OAuth 2.0 clients                          |
+| `authorization:oauth2:clients:write`    | Manage OAuth 2.0 clients                          |
+| `autorecording:greeting:read`           | Access autorecording greeting                     |
+| `autorecording:greeting:write`          | Manage autorecording greeting                     |
+| `balance:read`                          | Access account balance                            |
+| `blacklist:read`                        | Access blacklist                                  |
+| `blacklist:write`                       | Manage blacklist                                  |
+| `callrestrictions:read`                 | Access call restrictions                          |
+| `callrestrictions:write`                | Manage call restrictions                          |
+| `contacts:read`                         | Access contacts                                   |
+| `contacts:write`                        | Manage contacts                                   |
+| `contracts:crm:read`                    | Access your CRM contracts                         |
+| `contracts:read`                        | Access contracts                                  |
+| `contracts:write`                       | Manage contracts                                  |
+| `devices:callerid:read`                 | Access caller ID                                  |
+| `devices:callerid:write`                | Manage caller ID                                  |
+| `devices:localprefix:read`              | Access automatic local area code                  |
+| `devices:localprefix:write`             | Manage automatic local area code                  |
+| `devices:read`                          | Access device settings                            |
+| `devices:sim:read`                      | Access SIM settings                               |
+| `devices:sim:write`                     | Manage SIM settings                               |
+| `devices:sims:orders:write`             | Order SIM cards                                   |
+| `devices:singlerowdisplay:read`         | Access hide own number settings                   |
+| `devices:singlerowdisplay:write`        | Manage hide own number settings                   |
+| `devices:tariffannouncement:read`       | Access rate announcement settings                 |
+| `devices:tariffannouncement:write`      | Manage rate announcement settings                 |
+| `devices:write`                         | Manage device settings                            |
+| `events:read`                           | Access call events                                |
+| `events:write`                          | Manage call events                                |
+| `faxlines:numbers:read`                 | Access fax device settings (numbers)              |
+| `faxlines:read`                         | Access fax device settings                        |
+| `faxlines:write`                        | Manage fax device settings                        |
+| `groups:devices:write`                  | Manage group device settings                      |
+| `groups:faxlines:read`                  | Access group fax device settings                  |
+| `groups:numbers:read`                   | Access group numbers                              |
+| `groups:read`                           | Access groups                                     |
+| `groups:users:read`                     | Access group members                              |
+| `groups:voicemails:read`                | Access group voicemail settings                   |
+| `history:read`                          | Access call history                               |
+| `history:write`                         | Manage call history                               |
+| `labels:read`                           | Access user labels                                |
+| `labels:write`                          | Manage user labels                                |
+| `log:webhooks:read`                     | Access webhooks log data                          |
+| `notifications:read`                    | Access notifications                              |
+| `notifications:write`                   | Manage notifications                              |
+| `numbers:read`                          | Access phone numbers                              |
+| `numbers:write`                         | Manage phone numbers                              |
+| `openid`                                | Identify you uniquely through your sipgate login  |
+| `payment:methods:read`                  | Access payment methods                            |
+| `payment:methods:write`                 | Manage payment methods                            |
+| `phonelines:blockanonymous:read`        | Access anonymous call settings                    |
+| `phonelines:blockanonymous:write`       | Manage anonymous call settings                    |
+| `phonelines:busyonbusy:read`            | Access busy on busy settings                      |
+| `phonelines:busyonbusy:write`           | Manage busy on busy settings                      |
+| `phonelines:devices:read`               | Access connection devices                         |
+| `phonelines:devices:write`              | Manage connection devices                         |
+| `phonelines:forwardings:read`           | Access call forwarding settings                   |
+| `phonelines:forwardings:write`          | Manage call forwarding settings                   |
+| `phonelines:numbers:read`               | Access connection numbers                         |
+| `phonelines:parallelforwardings:read`   | Access parallel forwarding settings               |
+| `phonelines:parallelforwardings:write`  | Manage parallel forwarding settings               |
+| `phonelines:read`                       | Access connections                                |
+| `phonelines:sipgateio:log:read`         | Access webhook debug log                          |
+| `phonelines:sipgateio:read`             | Access webhooks                                   |
+| `phonelines:sipgateio:write`            | Manage webhooks                                   |
+| `phonelines:voicemails:greetings:read`  | Access connection voicemail announcement settings |
+| `phonelines:voicemails:greetings:write` | Manage connection voicemail announcement settings |
+| `phonelines:voicemails:read`            | Access connection voicemail settings              |
+| `phonelines:voicemails:write`           | Manage connection voicemail settings              |
+| `phonelines:write`                      | Manage connections                                |
+| `phones:read`                           | Access provisioned phones                         |
+| `phones:write`                          | Manage provisioned phones                         |
+| `portings:read`                         | Access number ports                               |
+| `portings:write`                        | Manage number ports                               |
+| `push_device:register`                  | Manage push notifications                         |
+| `rtcm:read`                             | Access active calls                               |
+| `rtcm:write`                            | Manage active calls                               |
+| `sessions:calls:write`                  | Initiate calls                                    |
+| `sessions:fax:write`                    | Send faxes                                        |
+| `sessions:sms:write`                    | Send SMS                                          |
+| `sessions:write`                        | Initiate calls, send faxes, send SMS              |
+| `settings:read`                         | Access global account settings                    |
+| `settings:sipgateio:read`               | Access global webhooks                            |
+| `settings:sipgateio:write`              | Manage global webhooks                            |
+| `settings:write`                        | Manage global account settings                    |
+| `sms:callerid:read`                     | Access SMS caller ID                              |
+| `sms:callerid:write`                    | Manage SMS caller ID                              |
+| `sms:read`                              | Access SMS device settings                        |
+| `sms:write`                             | Manage SMS device settings                        |
+| `trunk:read`                            | Access Trunking settings                          |
+| `users:busyonbusy:write`                | Manage busy on busy settings                      |
+| `users:defaultdevice:write`             | Manage default device settings                    |
+| `users:read`                            | Access users                                      |
+| `users:role:write`                      | Manage user roles                                 |
+| `users:write`                           | Manage users                                      |
+| `voicemails:read`                       | Access Voicemails                                 |
