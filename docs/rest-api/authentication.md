@@ -78,11 +78,12 @@ Since OAuth2 is standardized and well supported, there are a lot of libraries co
 The authentication screen is accessible at:
 
 ```
-    https://login.sipgate.com/auth/realms/third-party/protocol/openid-connect/auth
+    https://login.sipgate.com/auth/realms/REALM/protocol/openid-connect/auth
 ```
 
 The URL must contain some mandatory query parameters:
 
+- realm: By default an oauth client will be created with a 'sipgate-apps' realm, but older clients can have the 'third-party' realm. You can check the realm your client is using at the [sipgate console](https://console.sipgate.com)
 - client_id: Your client id, something like 2556404-0-dc848ae6-085c-11e8-92a6-31b99c83912e
 - redirect_uri: The uri we should send the user after the authorization. Something like https://your.application.com/authorize
 - scope: Scopes the user should grant access to, e.g: balance:read
@@ -90,12 +91,13 @@ The URL must contain some mandatory query parameters:
 
 Example URL:
 ```
-    https://login.sipgate.com/auth/realms/third-party/protocol/openid-connect/auth?client_id=2556404-0-dc848ae6-085c-11e8-92a6-31b99c83912e&redirect_uri=https%3A%2F%2Fyour.application%2Fauthorize.com&scope=balance%3Aread&response_type=code
+    https://login.sipgate.com/auth/realms/sipgate-apps/protocol/openid-connect/auth?client_id=2556404-0-dc848ae6-085c-11e8-92a6-31b99c83912e&redirect_uri=https%3A%2F%2Fyour.application%2Fauthorize.com&scope=balance%3Aread&response_type=code
 ```
 
 Generate the URL with Javascript:
 ```js
-    const apiAuthUrl = 'https://login.sipgate.com/auth/realms/third-party/protocol/openid-connect/auth?'
+    const realm = "sipgate-apps";
+    const apiAuthUrl = `https://login.sipgate.com/auth/realms/${realm}/protocol/openid-connect/auth?`
       + queryString.stringify({
           client_id: '2556404-0-dc848ae6-085c-11e8-92a6-31b99c83912e',
           redirect_uri: 'https://your.application.com/authorize',
@@ -130,11 +132,12 @@ You can take this code and build your request for step 3.
 To request access and a refresh tokens for the user, you need to send your client credentials and the previously fetched code to the authentication system. To get the tokens you have to send a post request against:
 
 ```
-    https://login.sipgate.com/auth/realms/third-party/protocol/openid-connect/token
+    https://login.sipgate.com/auth/realms/REALM/protocol/openid-connect/token
 ```
 
 The parameters you need to provide, form encoded, are:
 
+- realm: The Realm where your client is established. You can check the realm your client is using at the [sipgate console](https://console.sipgate.com)
 - client_id: Your client id, something like 2556404-0-dc848ae6-085c-11e8-92a6-31b99c83912e
 - client_secret:  Your client secret, something like a1138f1-7-dc848ae6-99aa-23ed-23a4-b7da6846f141
 - code: 2Eamxyz7vQLiHyGqklDox5l1NIDaJ0Fd08ngBaeVNtM.0714e913-f108-4e45-8ad4-976d39dfe0c2
@@ -142,8 +145,9 @@ The parameters you need to provide, form encoded, are:
 - grant_type: Always 'authorization_code'
 
 ```js
+    const realm = "sipgate-apps" 
     const authorizationCode = req.query.code;
-    const apiTokenUrl = "https://login.sipgate.com/auth/realms/third-party/protocol/openid-connect/token";
+    const apiTokenUrl = `https://login.sipgate.com/auth/realms/${realm}/protocol/openid-connect/token`;
 
     const response = request.post({
       url: apiTokenUrl,
@@ -179,8 +183,9 @@ The response to the query explained in step 3 looks like this:
 The following snippet shows the request from step 3 and extracts the access code out of the response.
 
 ```js
+const realm = "sipgate-apps"
 const authorizationCode = req.query.code;
-const apiTokenUrl = "https://login.sipgate.com/auth/realms/third-party/protocol/openid-connect/token";
+const apiTokenUrl = `https://login.sipgate.com/auth/realms/${realm}/protocol/openid-connect/token`;
 
 const response = request.post({
   url: apiTokenUrl,
@@ -212,11 +217,12 @@ Now you are ready to access the sipgate api. To do so, you have to send the `acc
 Due to security reasons, the access token obtained in step 4 has a very limited lifetime of usually 5 minutes. To prevent your user from logging in every 5 minutes, OAuth2 provides a token refresh mechanism. To get a new `access token`, you have to send the corresponding `refresh token` as well as your `client id` and `client secret` to our authentication system at:
 
 ```
-    https://login.sipgate.com/auth/realms/third-party/protocol/openid-connect/token
+    https://login.sipgate.com/auth/realms/REALM/protocol/openid-connect/token
 ```
 
 Provide following data form encoded within a POST request:
 
+- realm: The Realm where your client is established. You can check the realm your client is using at the [sipgate console](https://console.sipgate.com)
 - client_id: Your client id, something like 2556404-0-dc848ae6-085c-11e8-92a6-31b99c83912e
 - client_secret:  Your client secret, something like a1138f1-7-dc848ae6-99aa-23ed-23a4-b7da6846f141
 - refresh_token: The refresh token corresponding to the expiring access token.
@@ -233,7 +239,7 @@ curl \
   --data-urlencode "client_secret=a1138f1-7-dc848ae6-99aa-23ed-23a4-b7da6846f141" \
   --data-urlencode "refresh_token=eyJhbGciOiJSUzI1NiIsInR5cCIgOiA[...]WDVWn1dj7kQ8_wVgmxg" \
   --data-urlencode "grant_type=refresh_token" \
-  https://login.sipgate.com/auth/realms/third-party/protocol/openid-connect/token
+  https://login.sipgate.com/auth/realms/sipgate-apps/protocol/openid-connect/token
 ```
 
 Our authentication system will provide a new set of `access token` and `refresh token` with a response like the following:
