@@ -3,40 +3,12 @@
 To access any resource provided by the sipgate REST API,  you have to send credentials with every request. How these credentials look like depends on the authentication method you choose.
 
 
-sipgate currently offers [Basic Authentication](#basic-auth) and [OAuth2](#oauth2). Basic Authentication is very convenient and easy to implement. Applications that need to read or write private information using the API on behalf of another user should use OAuth2.
+sipgate currently offers [Personal Access Token](#personal-access-token) and [OAuth2](#oauth2). Personal Access Token are very convenient and easy to implement. Applications that need to read or write private information using the API on behalf of another user should use OAuth2.
 
 
-## Basic Auth
+## Personal Access Token
 
-Basic Auth is an easy to use, well known and well supported authentication method. There is a lot of documentation about this authentication method in the internet, e.g: [Wikipedia](https://de.wikipedia.org/wiki/HTTP-Authentifizierung#Basic_Authentication) or [RFC 2617](https://www.ietf.org/rfc/rfc2617.txt).
-
-To use Basic Auth, you simply have to provide an Authorization header with each request. The header takes the keyword `Basic` followed by a blank and a credential string. The credentials string is `username:password` Base64 encoded.
-
-E.g., if your username was `John` and your password was `topsecret`, your plaintext credentials string would be `John:topsecret`. The Base64 encoded string would be `Sm9objp0b3BzZWNyZXQ=`.
-
-The complete Header would look like:
-
-```
-Authorization: Basic Sm9objp0b3BzZWNyZXQ=
-```
-
-Example:
-```bash
-curl \
-  --request GET \
-  --header "Accept: application/json" \
-  --header "Authorization: Basic Sm9objp0b3BzZWNyZXQ=" \
-  https://api.sipgate.com/v2/account
-```
-
-Use the `--user` flag to let curl handle the Base64 encoding.
-```bash
-curl \
-  --request GET \
-  --header "Accept: application/json" \
-  --user <your_sipgate_username>:<your_sipgate_password> \
-  https://api.sipgate.com/v2/account
-```
+see https://www.sipgate.io/rest-api/authentication#personalAccessToken
 
 ## OAuth2
 
