@@ -8,7 +8,7 @@ sipgate currently offers [Personal Access Token](#personal-access-token) and [OA
 
 ## Personal Access Token
 
-see https://www.sipgate.io/rest-api/authentication#personalAccessToken
+see [https://www.sipgate.io/rest-api/authentication#personalAccessToken](https://www.sipgate.io/rest-api/authentication#personalAccessToken)
 
 ## OAuth2
 
